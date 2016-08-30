@@ -4,12 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:set var="app" value="${pageContext.servletContext.contextPath}" />
-<c:set var="isAnon" value="${empty currentUser}" />
 
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${app}/">[[app_name]]</a>
+			<a class="navbar-brand" href="${app}/">ERP</a>
 			<button type="button"
 					class="navbar-toggle collapsed"
 					data-toggle="collapse"

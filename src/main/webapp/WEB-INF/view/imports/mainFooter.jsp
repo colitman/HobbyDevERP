@@ -7,9 +7,9 @@
 
 <footer class="hd-main-footer navbar-fixed-bottom">
 	<p class="text-center text-muted">
-		[[app_name]] |
+		ERP |
 		<a href="https://ua.linkedin.com/in/dmytro-romenskyi-87035524">Dmytro Romenskyi</a> |
-		HobbyDev | [[year]] |
+		HobbyDev | 2016 |
 		<a href="${app}/swagger-ui.html">API Reference</a>
 	</p>
 </footer>
