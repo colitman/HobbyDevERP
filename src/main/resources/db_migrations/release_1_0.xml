@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+	<changeSet id="create_model" author="romenskyi" dbms="postgresql">
+		<!--
+			Creating sequences
+		-->
+		<createSequence sequenceName="users_key_seq" incrementBy="1" minValue="1" startValue="1" />
+		
+		<!--
+			Creating tables
+		-->
+		<createTable tableName="users" >
+			<column name="key" type="bigint" defaultValueSequenceNext="users_key_seq">
+				<constraints primaryKey="true" nullable="false" unique="true" />
+			</column>
+			<column name="username" type="text">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="password" type="text">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>
