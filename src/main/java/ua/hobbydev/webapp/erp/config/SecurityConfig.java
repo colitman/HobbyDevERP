@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter,CsrfFilter.class);
 		
 		if(!onHeroku) {
-			http.requiresChannel().anyRequest().requiresSecure();
+			http.requiresChannel().antMatchers("/sign*").requiresSecure();
 		}
         
         http

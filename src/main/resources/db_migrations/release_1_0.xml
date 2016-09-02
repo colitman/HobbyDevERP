@@ -14,6 +14,15 @@
 		<!--
 			Creating tables
 		-->
+		<createTable tableName="app_log_events" >
+			<column name="event_date" type="timestamp with time zone" />
+			<column name="class" type="text" />
+			<column name="level" type="text" />
+			<column name="message" type="text" />
+			<column name="context" type="text" />
+			<column name="stacktrace" type="text" />
+		</createTable>
+		
 		<createTable tableName="users" >
 			<column name="key" type="bigint" defaultValueSequenceNext="users_key_seq">
 				<constraints primaryKey="true" nullable="false" unique="true" />

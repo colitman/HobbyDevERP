@@ -3,10 +3,19 @@
 <Configuration>
                
 	<Properties>
-		<Property name="log-path">D:\</Property>
+		<!-- <Property name="log-path">D:\</Property> -->
 	</Properties>
   	<Appenders>
-		<!-- <RollingFile 	name="security" 
+		<!--<JDBC name="jdbc_appender" tableName="app_log_events">
+			<ConnectionFactory class="ua.hobbydev.webapp.erp.logging.JdbcLogAppenderConnectionFactory" method="getConnection" />
+			<Column name="event_date" isEventTimestamp="true" />
+			<Column name="class" pattern="%c" />
+			<Column name="level" pattern="%p" />
+			<Column name="message" pattern="%m" />
+			<Column name="context" pattern="%X" />
+			<Column name="stacktrace" pattern="%ex{full}" />
+		</JDBC>
+		 <RollingFile 	name="security"
         				fileName="${log-path}/security-log.log" 
         				filePattern="${log-path}/security-log-%i.log" 
         				append="true">
@@ -33,8 +42,8 @@
   		<!-- <Logger name="org.springframework.security" level="trace">
 	      <AppenderRef ref="security"/>
 	    </Logger>
-    	<Root level="debug">
-      		<AppenderRef ref="appender"/>
-    	</Root> -->
+    	<Root level="trace">
+      		<AppenderRef ref="jdbc_appender"/>
+    	</Root>-->
   	</Loggers>
 </Configuration>
