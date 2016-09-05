@@ -4,18 +4,13 @@
  */
 package ua.hobbydev.webapp.erp.business.users;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import ua.hobbydev.webapp.erp.business.DefaultServiceInterface;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.util.List;
 
-/**
- * @author dmytro.romenskyi - Jun 30, 2016
- *
- */
-public interface UserServiceInterface extends DefaultServiceInterface, UserDetailsService {
+public interface UserServiceInterface extends DefaultServiceInterface {
 
 	/**
 	 * Checks whether the user with provided username exists

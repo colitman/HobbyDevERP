@@ -5,18 +5,14 @@
 package ua.hobbydev.webapp.erp.domain.users;
 
 import org.hibernate.annotations.Type;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import ua.hobbydev.webapp.erp.data.NameColumn;
 import ua.hobbydev.webapp.erp.domain.UniqueNamedEntityInterface;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name="users")
-public class User implements UniqueNamedEntityInterface, UserDetails {
+public class User implements UniqueNamedEntityInterface/*, UserDetails*/ {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,14 +26,14 @@ public class User implements UniqueNamedEntityInterface, UserDetails {
 	@Type(type="text")
 	private String username;
 	
-	@Column(name="password", nullable=false)
+	/*@Column(name="password", nullable=false)
 	@Type(type="text")
-	private String password;
+	private String password;*/
 
 	public User() {
 		this.key = -1L;
 		this.username = "";
-		this.password = "";
+		//this.password = "";
 	}
 
 	@Override
@@ -50,7 +46,7 @@ public class User implements UniqueNamedEntityInterface, UserDetails {
 		this.key = key;
 	}
 
-	@Override
+	//@Override
 	public String getUsername() {
 		return username;
 	}
@@ -70,14 +66,14 @@ public class User implements UniqueNamedEntityInterface, UserDetails {
 		setUsername(name);
 	}
 
-	@Override
+	/*@Override
 	public String getPassword() {
 		return password;
 	}
 	
 	public void setPassword(String password) {
 		this.password = password;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {
@@ -104,7 +100,7 @@ public class User implements UniqueNamedEntityInterface, UserDetails {
 		return true;
 	}
 
-	@Override
+	/*@Override
 	@Transient
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return AuthorityUtils.NO_AUTHORITIES;
@@ -132,5 +128,5 @@ public class User implements UniqueNamedEntityInterface, UserDetails {
 	@Transient
 	public boolean isCredentialsNonExpired() {
 		return isEnabled();
-	}
+	}*/
 }
