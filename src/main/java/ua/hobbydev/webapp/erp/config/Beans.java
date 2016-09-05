@@ -74,7 +74,7 @@ public class Beans {
 
 	/**
 	 * Bean for application.properties file resolution
-	 * @return
+	 * @return initialized properties source bean
      */
 	@Bean
 	public PropertySourcesPlaceholderConfigurer properties() {

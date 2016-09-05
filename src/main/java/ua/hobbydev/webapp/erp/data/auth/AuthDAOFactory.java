@@ -33,11 +33,11 @@ public class AuthDAOFactory implements AuthDAOFactoryInterface {
             dao = (AuthDAOInterface) daoClass.newInstance();
             daos.put(daoClass.getName(), dao);
         } catch (ClassNotFoundException e) {
-            //TODO handle
+            //TODO add logging
         } catch (InstantiationException e) {
-            //TODO handle
+            //TODO add logging
         } catch (IllegalAccessException e) {
-            //TODO handle
+            //TODO add logging
         }
 
         return dao;

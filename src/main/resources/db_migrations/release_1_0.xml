@@ -30,9 +30,21 @@
 			<column name="username" type="text">
 				<constraints nullable="false" unique="true" />
 			</column>
+		</createTable>
+		
+		<createTable tableName="creds" >
+			<column name="user_key" type="bigint">
+				<constraints primaryKey="true" nullable="false" unique="true" />
+			</column>
 			<column name="password" type="text">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
+		
+		<addForeignKeyConstraint baseTableName="creds"
+								 baseColumnNames="user_key"
+								 constraintName="creds_user_key_FK"
+								 referencedTableName="users"
+								 referencedColumnNames="key" />
 	</changeSet>
 </databaseChangeLog>

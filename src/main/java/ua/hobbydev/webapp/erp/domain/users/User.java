@@ -25,15 +25,10 @@ public class User implements UniqueNamedEntityInterface/*, UserDetails*/ {
 	@NameColumn
 	@Type(type="text")
 	private String username;
-	
-	/*@Column(name="password", nullable=false)
-	@Type(type="text")
-	private String password;*/
 
 	public User() {
 		this.key = -1L;
 		this.username = "";
-		//this.password = "";
 	}
 
 	@Override
@@ -46,7 +41,6 @@ public class User implements UniqueNamedEntityInterface/*, UserDetails*/ {
 		this.key = key;
 	}
 
-	//@Override
 	public String getUsername() {
 		return username;
 	}
@@ -65,15 +59,6 @@ public class User implements UniqueNamedEntityInterface/*, UserDetails*/ {
 	public void setName(String name) {
 		setUsername(name);
 	}
-
-	/*@Override
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}*/
 
 	@Override
 	public int hashCode() {
@@ -99,34 +84,4 @@ public class User implements UniqueNamedEntityInterface/*, UserDetails*/ {
 			return false;
 		return true;
 	}
-
-	/*@Override
-	@Transient
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return AuthorityUtils.NO_AUTHORITIES;
-	}
-
-	@Override
-	@Transient
-	public boolean isEnabled() {
-		return true;
-	}
-
-	@Override
-	@Transient
-	public boolean isAccountNonExpired() {
-		return isEnabled();
-	}
-
-	@Override
-	@Transient
-	public boolean isAccountNonLocked() {
-		return isEnabled();
-	}
-
-	@Override
-	@Transient
-	public boolean isCredentialsNonExpired() {
-		return isEnabled();
-	}*/
 }

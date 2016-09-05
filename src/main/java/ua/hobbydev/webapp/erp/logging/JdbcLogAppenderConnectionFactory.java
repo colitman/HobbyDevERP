@@ -4,9 +4,6 @@
  */
 package ua.hobbydev.webapp.erp.logging;
 
-/**
- * Created by dmytro.romenskyi on 9/2/2016.
- */
 public class JdbcLogAppenderConnectionFactory {
 /*
     private static JdbcLogAppenderConnectionFactory instance = null;
