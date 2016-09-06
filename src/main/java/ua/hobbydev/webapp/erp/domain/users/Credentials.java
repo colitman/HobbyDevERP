@@ -5,17 +5,18 @@
 package ua.hobbydev.webapp.erp.domain.users;
 
 import org.hibernate.annotations.Type;
-import ua.hobbydev.webapp.erp.domain.EntityInterface;
+import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name="creds")
-public class Credentials implements EntityInterface, Serializable {
+public class Credentials implements IdentifiedEntityInterface, Serializable {
 
 	@Id
 	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_key")
 	private User user;
 
 	@Column(name="password", nullable=false)
@@ -41,5 +42,17 @@ public class Credentials implements EntityInterface, Serializable {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	@Transient
+	public Long getKey() {
+		return user.getKey();
+	}
+
+	@Override
+	@Transient
+	public void setKey(Long key) {
+		this.user.setKey(key);
 	}
 }

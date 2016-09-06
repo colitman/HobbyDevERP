@@ -45,6 +45,29 @@
 								 baseColumnNames="user_key"
 								 constraintName="creds_user_key_FK"
 								 referencedTableName="users"
-								 referencedColumnNames="key" />
+								 referencedColumnNames="key"
+								 onUpdate="CASCADE"
+								 onDelete="CASCADE" />
+		
+		<createTable tableName="auth_tokens" >
+			<column name="user_key" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="token" type="text">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+			<column name="expires" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint baseTableName="auth_tokens"
+								 baseColumnNames="user_key"
+								 constraintName="auth_tokens_user_key_FK"
+								 referencedTableName="users"
+								 referencedColumnNames="key"
+								 onUpdate="CASCADE"
+								 onDelete="CASCADE"/>
 	</changeSet>
 </databaseChangeLog>

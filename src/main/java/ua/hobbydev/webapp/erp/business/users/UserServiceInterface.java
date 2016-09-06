@@ -40,6 +40,17 @@ public interface UserServiceInterface extends DefaultServiceInterface {
 	User get(Long key) throws ResourceNotFoundException;
 
 	/**
+	 * Gets user by username
+	 *
+	 * @param username username to search
+	 *
+	 * @return User with provided username
+	 *
+	 * @throws ResourceNotFoundException if user with provided username does not exist
+	 */
+	User get(String username) throws ResourceNotFoundException;
+
+	/**
 	 * Gets all users
 	 *
 	 * @return a list of all users or empty list if there are no user entries

@@ -13,9 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.hobbydev.webapp.erp.business.ResourceAlreadyExistsException;
 import ua.hobbydev.webapp.erp.data.ObjectNotExistsException;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOFactoryInterface;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOInterface;
+import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.util.Collection;
 
@@ -26,6 +28,8 @@ public class UserAuthService implements UserAuthServiceInterface {
 
     @Autowired
     private AuthDAOFactoryInterface authDaoFactory;
+
+    @Autowired UserServiceInterface userService;
 
     private AuthDAOInterface getAuthDao() {
         return authDaoFactory.getDao(authDaoName);
@@ -38,15 +42,25 @@ public class UserAuthService implements UserAuthServiceInterface {
             throw new UsernameNotFoundException("Username not found:[" + username + "]");
         }
 
-        AuthUser user = new AuthUser();
-        user.setUsername(username);
+        AuthUser authUser = new AuthUser();
+        authUser.setUsername(username);
         try {
-            user.setPassword(getAuthDao().getPasswordForUsername(username));
+            authUser.setPassword(getAuthDao().getPasswordForUsername(username));
         } catch (ObjectNotExistsException e) {
             throw new UsernameNotFoundException("Username not found:[" + username + "]");
         }
 
-        return user;
+        if(!userService.exists(username)) {
+            User user = new User();
+            user.setUsername(authUser.getUsername());
+            try {
+                userService.add(user);
+            } catch (ResourceAlreadyExistsException e) {
+                //TODO add logging
+            }
+        }
+
+        return authUser;
     }
 
     private class AuthUser implements UserDetails {

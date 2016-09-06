@@ -84,7 +84,7 @@ public class DataAccessConfig {
 			redefineCredentialsForHeroku();
 		}
 		
-        String jdbcURL = "jdbc:postgresql://" + host + ':' + port + "/" + dbName;
+        String jdbcURL = "jdbc:postgresql://" + host + ":" + port + "/" + dbName;
 
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
 		dataSource.setDriverClass(driverClass);

@@ -15,6 +15,7 @@ import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 import ua.hobbydev.webapp.erp.domain.NamedEntityInterface;
 import ua.hobbydev.webapp.erp.domain.UniqueNamedEntityInterface;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -171,8 +172,18 @@ public class DefaultDAO {
      */
 	public <ENTITY extends EntityInterface> Long create(ENTITY entity) {
 		Session session = getSession();
+
+		Serializable locator;
+		Long key = -1L;
+
+		try {
+			locator = session.save(entity);
+			key = (Long) locator;
+		} catch (ClassCastException cce) {
+			// TODO add logging
+		}
 		
-		return (Long) session.save(entity);
+		return key;
 	}
 
 	/**

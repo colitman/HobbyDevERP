@@ -43,6 +43,16 @@ public class UserService extends DefaultService implements UserServiceInterface 
 
     @Override
     @Transactional
+    public User get(String username) throws ResourceNotFoundException {
+        try {
+            return get(getDAO().getKeyByName(User.class, username));
+        } catch (ObjectNotExistsException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
     public List<User> list() {
         return list(User.class);
     }

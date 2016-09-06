@@ -18,6 +18,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import ua.hobbydev.webapp.erp.Application;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Swagger configuration
  */
@@ -37,7 +40,9 @@ public class SwaggerConfig {
 				.build()
 			.apiInfo(apiInfo())
 			.ignoredParameterTypes(CurrentUser.class,
-									CookieValue.class);
+									CookieValue.class,
+					HttpServletRequest.class,
+					HttpServletResponse.class);
 		
 		return docket;
 	}

@@ -5,6 +5,8 @@
 package ua.hobbydev.webapp.erp.config;
 
 import liquibase.integration.spring.SpringLiquibase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -22,6 +24,8 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:application.properties")
 public class Beans {
+
+	private static final Logger logger = LogManager.getLogger();
 
 	/**
 	 * Liquibase bean is responsible for database migrations.
@@ -68,7 +72,9 @@ public class Beans {
 		
 		PasswordEncoder passwordEncoder = new PasswordEncoder();
 		passwordEncoder.setPasswordEncryptor(passwordEncryptor);
-		
+
+		logger.trace("PasswordEncoder created");
+
 		return passwordEncoder;
 	}
 
