@@ -16,6 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -35,6 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private AccessDeniedHandler accessDeniedHandler;
+
+	@Autowired
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
 	
 	private @Value("${environment.heroku}") boolean onHeroku;
 
@@ -50,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter,CsrfFilter.class);
 		
 		if(!onHeroku) {
-			http.requiresChannel().antMatchers("/sign*").requiresSecure();
+			http.requiresChannel().anyRequest().requiresSecure();
 		}
         
         http
@@ -65,11 +73,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				.defaultSuccessUrl("/", false)
 				.failureUrl("/signin?error")
+				.successHandler(authenticationSuccessHandler)
 				.and()
 			.logout()
 				.logoutUrl("/signout")
 				.logoutSuccessUrl("/signin")
 				.invalidateHttpSession(true)
+				.logoutSuccessHandler(logoutSuccessHandler)
 				.and()
 			.exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler);

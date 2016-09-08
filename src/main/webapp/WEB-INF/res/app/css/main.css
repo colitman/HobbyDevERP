@@ -33,7 +33,7 @@ i.disabled {
 	}
 }
 
-header.hd-main-header {
+.hd-main-header {
 	margin-top: -20px;
 	padding: 20px;
 	border-bottom: 1px solid #e7e7e7;
@@ -42,10 +42,15 @@ header.hd-main-header {
 
 
 
-footer.hd-main-footer {
+.hd-main-footer {
 	padding-top: 10px;
 	background-color: #f8f8f8;
-	border: solid #e7e7e7;
+	border: solid thin #e7e7e7;
+}
+
+.hd-auth-form {
+	max-width: 300px;
+	margin: auto;
 }
 
 

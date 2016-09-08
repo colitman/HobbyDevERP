@@ -4,6 +4,8 @@
  */
 package ua.hobbydev.webapp.erp.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,11 +15,23 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(method=RequestMethod.GET)
 public class BaseController {
 
+	@PreAuthorize(value = "isAuthenticated()")
 	@RequestMapping(path="/")
-	public ModelAndView root(ModelAndView mv) {
+	public ModelAndView getRootPage(ModelAndView mv) {
 
 		mv.setViewName("root");
 		
+		return mv;
+	}
+
+	@RequestMapping(path = "/signin")
+	public ModelAndView getSignInPage(ModelAndView mv, Authentication principal) {
+		if(principal != null && principal.isAuthenticated()) {
+			mv.setViewName("redirect:/");
+		} else {
+			mv.setViewName("signin");
+		}
+
 		return mv;
 	}
 }
