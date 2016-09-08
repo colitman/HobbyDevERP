@@ -8,21 +8,22 @@ import org.hibernate.annotations.Type;
 import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Entity
 @Table(name = "auth_tokens")
-public class AuthToken implements IdentifiedEntityInterface, Serializable {
+public class AuthToken implements IdentifiedEntityInterface {
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
+    @Column(name = "key")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long key;
+
+    @ManyToOne
     @JoinColumn(name = "user_key")
     private User user;
 
-    @Id
     @Column(name="token", nullable=false)
     @Type(type="text")
     private String token;
@@ -31,11 +32,22 @@ public class AuthToken implements IdentifiedEntityInterface, Serializable {
     private Date expires;
 
     public AuthToken() {
+        this.key = -1L;
         this.user = null;
         this.token = "";
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 7);
         this.expires = c.getTime();
+    }
+
+    @Override
+    public Long getKey() {
+        return key;
+    }
+
+    @Override
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public User getUser() {
@@ -60,17 +72,5 @@ public class AuthToken implements IdentifiedEntityInterface, Serializable {
 
     public void setExpires(Date expires) {
         this.expires = expires;
-    }
-
-    @Override
-    @Transient
-    public Long getKey() {
-        return user.getKey();
-    }
-
-    @Override
-    @Transient
-    public void setKey(Long key) {
-        this.user.setKey(key);
     }
 }

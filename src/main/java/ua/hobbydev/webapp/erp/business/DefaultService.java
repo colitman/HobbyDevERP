@@ -80,4 +80,17 @@ public class DefaultService implements DefaultServiceInterface {
 			throw new ResourceNotFoundException(e.getMessage(), e);
 		}
 	}
+
+	@Override
+	@Transactional
+	public <ENTITY extends IdentifiedEntityInterface> void delete(Class<ENTITY> clazz, Long key) {
+		ENTITY entity = null;
+		try {
+			entity = get(clazz, key);
+		} catch (ResourceNotFoundException e) {
+			//TODO add logging
+			return;
+		}
+		getDAO().delete(entity);
+	}
 }

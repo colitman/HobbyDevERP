@@ -10,6 +10,8 @@
 			Creating sequences
 		-->
 		<createSequence sequenceName="users_key_seq" incrementBy="1" minValue="1" startValue="1" />
+		<createSequence sequenceName="creds_key_seq" incrementBy="1" minValue="1" startValue="1" />
+		<createSequence sequenceName="auth_tokens_key_seq" incrementBy="1" minValue="1" startValue="1" />
 		
 		<!--
 			Creating tables
@@ -33,8 +35,11 @@
 		</createTable>
 		
 		<createTable tableName="creds" >
-			<column name="user_key" type="bigint">
+			<column name="key" type="bigint" defaultValueSequenceNext="creds_key_seq">
 				<constraints primaryKey="true" nullable="false" unique="true" />
+			</column>
+			<column name="user_key" type="bigint">
+				<constraints nullable="false" unique="true" />
 			</column>
 			<column name="password" type="text">
 				<constraints nullable="false" />
@@ -50,8 +55,11 @@
 								 onDelete="CASCADE" />
 		
 		<createTable tableName="auth_tokens" >
+			<column name="key" type="bigint" defaultValueSequenceNext="auth_tokens_key_seq">
+				<constraints primaryKey="true" nullable="false" unique="true" />
+			</column>
 			<column name="user_key" type="bigint">
-				<constraints primaryKey="true" nullable="false" />
+				<constraints nullable="false" />
 			</column>
 			<column name="token" type="text">
 				<constraints primaryKey="true" nullable="false" />

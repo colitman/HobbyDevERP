@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.hobbydev.webapp.erp.business.DefaultServiceInterface;
 import ua.hobbydev.webapp.erp.business.ResourceAlreadyExistsException;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
+import ua.hobbydev.webapp.erp.business.tokens.AuthTokenServiceInterface;
 import ua.hobbydev.webapp.erp.business.users.UserAuthServiceInterface;
 import ua.hobbydev.webapp.erp.business.users.UserServiceInterface;
 import ua.hobbydev.webapp.erp.domain.users.AuthToken;
@@ -24,6 +25,7 @@ import ua.hobbydev.webapp.erp.domain.users.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="api/")
@@ -37,6 +39,8 @@ public class AuthController {
 	private DefaultServiceInterface defaultService;
 	@Autowired
 	private UserServiceInterface userService;
+	@Autowired
+	private AuthTokenServiceInterface authTokenService;
 
 	@RequestMapping(path="auths", method=RequestMethod.POST)
 	public ResponseEntity<String> authenticate(@RequestParam String username,
@@ -80,5 +84,39 @@ public class AuthController {
 		
 		ResponseEntity<String> response = new ResponseEntity<String>(token, status);
 		return response;
+	}
+
+	@RequestMapping(path = "auths", method = RequestMethod.DELETE)
+	public ResponseEntity<String> unauthenticate(@RequestParam String username,
+												 @RequestParam String token) {
+		HttpStatus status = HttpStatus.NOT_FOUND;
+
+		if(!userService.exists(username)) {
+			return new ResponseEntity<String>("User not found:[" + username + "]", status);
+		}
+
+		Long userKey = -1L;
+		try {
+			userKey = userService.get(username).getKey();
+		} catch (ResourceNotFoundException e) {
+			//TODO add logging
+		}
+
+		List<AuthToken> userTokens = authTokenService.getByUserKey(userKey);
+
+		status = HttpStatus.NO_CONTENT;
+
+		for(AuthToken t:userTokens) {
+			if(passwordEncoder.isPasswordValid(t.getToken(), token, null)) {
+				authTokenService.delete(t.getClass(), t.getKey());
+				status = HttpStatus.OK;
+			} else {
+				if(!t.getExpires().after(new Date())) {
+					authTokenService.delete(t.getClass(), t.getKey());
+				}
+			}
+		}
+
+		return new ResponseEntity<String>(status);
 	}
 }

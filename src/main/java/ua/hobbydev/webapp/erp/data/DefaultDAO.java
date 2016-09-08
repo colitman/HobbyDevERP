@@ -15,7 +15,6 @@ import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 import ua.hobbydev.webapp.erp.domain.NamedEntityInterface;
 import ua.hobbydev.webapp.erp.domain.UniqueNamedEntityInterface;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -173,12 +172,10 @@ public class DefaultDAO {
 	public <ENTITY extends EntityInterface> Long create(ENTITY entity) {
 		Session session = getSession();
 
-		Serializable locator;
 		Long key = -1L;
 
 		try {
-			locator = session.save(entity);
-			key = (Long) locator;
+			key = (Long) session.save(entity);
 		} catch (ClassCastException cce) {
 			// TODO add logging
 		}
@@ -208,5 +205,18 @@ public class DefaultDAO {
 		Session session = getSession();
 
 		return session.merge(entity) != null;
+	}
+
+	public <ENTITY extends IdentifiedEntityInterface> void delete(ENTITY entity) {
+		if(entity == null || entity.getKey() == null) {
+			throw new IllegalArgumentException("Invalid entity provided - entity or its key is NULL");
+		}
+
+		if(!exists(entity.getClass(), entity.getKey())) {
+			return;
+		}
+
+		Session session = getSession();
+		session.delete(entity);
 	}
 }

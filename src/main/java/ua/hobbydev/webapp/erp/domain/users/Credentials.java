@@ -8,13 +8,16 @@ import org.hibernate.annotations.Type;
 import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name="creds")
-public class Credentials implements IdentifiedEntityInterface, Serializable {
+public class Credentials implements IdentifiedEntityInterface {
 
 	@Id
+	@Column(name = "key")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long key;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_key")
 	private User user;
@@ -24,8 +27,19 @@ public class Credentials implements IdentifiedEntityInterface, Serializable {
 	private String password;
 
 	public Credentials() {
+		this.key = -1L;
 		this.user = null;
 		this.password = "";
+	}
+
+	@Override
+	public Long getKey() {
+		return key;
+	}
+
+	@Override
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public User getUser() {
@@ -42,17 +56,5 @@ public class Credentials implements IdentifiedEntityInterface, Serializable {
 	
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	@Transient
-	public Long getKey() {
-		return user.getKey();
-	}
-
-	@Override
-	@Transient
-	public void setKey(Long key) {
-		this.user.setKey(key);
 	}
 }

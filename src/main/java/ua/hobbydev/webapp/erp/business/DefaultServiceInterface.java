@@ -63,4 +63,6 @@ public interface DefaultServiceInterface {
 	 */
 	<ENTITY extends IdentifiedEntityInterface> boolean update(ENTITY entity) throws ResourceNotFoundException;
 
+	<ENTITY extends IdentifiedEntityInterface> void delete(Class<ENTITY> clazz, Long key);
+
 }
