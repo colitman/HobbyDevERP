@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:set var="app" value="${pageContext.servletContext.contextPath}" />
+<sec:authentication property="name" var="username" />
 
 <!DOCTYPE html>
 <html lang="en">

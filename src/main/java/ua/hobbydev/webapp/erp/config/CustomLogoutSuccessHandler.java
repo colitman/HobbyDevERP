@@ -31,7 +31,7 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
         for(Cookie c:cookies) {
             String cookieName = c.getName();
-            if(!cookieName.equalsIgnoreCase("token") && !cookieName.equalsIgnoreCase("user")) {
+            if(!cookieName.equalsIgnoreCase("token")) {
                 continue;
             }
 

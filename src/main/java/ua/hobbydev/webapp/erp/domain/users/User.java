@@ -12,9 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-public class User implements UniqueNamedEntityInterface/*, UserDetails*/ {
-
-	private static final long serialVersionUID = 1L;
+public class User implements UniqueNamedEntityInterface {
 	
 	@Id
 	@Column(name="key")

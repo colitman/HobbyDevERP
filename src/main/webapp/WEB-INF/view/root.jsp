@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:set var="app" value="${pageContext.servletContext.contextPath}" />
+<sec:authentication property="name" var="username" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +15,11 @@
 	<body data-page="root">
 		<div class="container">
 			<c:import url="/imports/mainNav?root=true"></c:import>
-			
+			<header class="hd-main-header">
+				<h1>${username}</h1>
+			</header>
 			<main>
-				root
+				
 			</main>
 			
 			<c:import url="/imports/mainFooter"></c:import>
@@ -25,6 +28,6 @@
 		<div class="hd-modals"></div>
 
 		<c:import url="/imports/scripts"></c:import>
-
+		<script src="${app}/res/app/js/modules/root/index.js"></script>
 	</body>
 </html>
