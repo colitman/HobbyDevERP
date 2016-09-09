@@ -40,6 +40,7 @@
 		<div class="hd-modals"></div>
 
 		<c:import url="/imports/scripts"></c:import>
+		<script src="${app}/res/app/js/modules/mainTopNav/index.js"></script>
 
 	</body>
 </html>

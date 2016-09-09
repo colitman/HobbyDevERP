@@ -28,6 +28,6 @@
 		<div class="hd-modals"></div>
 
 		<c:import url="/imports/scripts"></c:import>
-		<script src="${app}/res/app/js/modules/root/index.js"></script>
+		<script src="${app}/res/app/js/pages/root/index.js"></script>
 	</body>
 </html>

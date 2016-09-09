@@ -18,4 +18,3 @@
 <script src="${app}/res/app/js/constants.js"></script>
 <script src="${app}/res/app/js/loader.js"></script>
 <script src="${app}/res/app/js/app.js"></script>
-<script src="${app}/res/app/js/modules/mainTopNav/index.js"></script>
