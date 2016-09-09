@@ -9,6 +9,8 @@ import ua.hobbydev.webapp.erp.data.NameColumn;
 import ua.hobbydev.webapp.erp.domain.UniqueNamedEntityInterface;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -24,9 +26,22 @@ public class User implements UniqueNamedEntityInterface {
 	@Type(type="text")
 	private String username;
 
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	private UserInfo userInfo;
+
+	@ManyToOne
+	@JoinColumn(name = "line_manager_key")
+	private User lineManager;
+
+	@OneToMany(mappedBy = "lineManager", cascade = CascadeType.PERSIST)
+	private List<User> subordinates;
+
 	public User() {
 		this.key = -1L;
 		this.username = "";
+		this.userInfo = null;
+		this.lineManager = null;
+		this.subordinates = new ArrayList<User>();
 	}
 
 	@Override
@@ -47,6 +62,14 @@ public class User implements UniqueNamedEntityInterface {
 		this.username = username;
 	}
 
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
 	@Override
 	@Transient
 	public String getName() {
@@ -54,8 +77,25 @@ public class User implements UniqueNamedEntityInterface {
 	}
 
 	@Override
+	@Transient
 	public void setName(String name) {
 		setUsername(name);
+	}
+
+	public User getLineManager() {
+		return lineManager;
+	}
+
+	public void setLineManager(User lineManager) {
+		this.lineManager = lineManager;
+	}
+
+	public List<User> getSubordinates() {
+		return subordinates;
+	}
+
+	public void setSubordinates(List<User> subordinates) {
+		this.subordinates = subordinates;
 	}
 
 	@Override
@@ -82,4 +122,5 @@ public class User implements UniqueNamedEntityInterface {
 			return false;
 		return true;
 	}
+
 }
