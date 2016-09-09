@@ -4,6 +4,7 @@
  */
 package ua.hobbydev.webapp.erp.domain.users;
 
+import org.hibernate.annotations.Type;
 import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 
 import javax.persistence.*;
@@ -19,16 +20,18 @@ public class PersonalInfo implements IdentifiedEntityInterface {
     private Long key;
 
     @OneToOne
-    @JoinColumn(name = "user_key")
+    @JoinColumn(name = "user_key", nullable = false)
     private User user;
 
     @Column(name = "birthday")
     private Date birthday;
 
     @Column(name = "phone")
+    @Type(type="text")
     private String phoneNumber;
 
     @Column(name = "skype")
+    @Type(type="text")
     private String skypeName;
 
     public PersonalInfo() {

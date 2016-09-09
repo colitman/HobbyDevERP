@@ -19,7 +19,7 @@ public class Credentials implements IdentifiedEntityInterface {
 	private Long key;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_key")
+	@JoinColumn(name = "user_key", nullable = false)
 	private User user;
 
 	@Column(name="password", nullable=false)

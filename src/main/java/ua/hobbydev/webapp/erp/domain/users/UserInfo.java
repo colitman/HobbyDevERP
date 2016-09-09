@@ -4,7 +4,7 @@
  */
 package ua.hobbydev.webapp.erp.domain.users;
 
-import ua.hobbydev.webapp.erp.domain.EntityInterface;
+import org.hibernate.annotations.Type;
 import ua.hobbydev.webapp.erp.domain.IdentifiedEntityInterface;
 
 import javax.persistence.*;
@@ -20,28 +20,34 @@ public class UserInfo implements IdentifiedEntityInterface {
     private Long key;
 
     @OneToOne
-    @JoinColumn(name = "user_key")
+    @JoinColumn(name = "user_key", nullable = false)
     private User user;
 
     @Column(name = "first_name", nullable = false)
+    @Type(type="text")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @Type(type="text")
     private String lastName;
 
     @Column(name = "middle_name")
+    @Type(type="text")
     private String middleName;
 
     @Column(name = "email", nullable = false, unique = true)
+    @Type(type="text")
     private String email;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
+    @Type(type="text")
     private String imageUrl;
 
     @Column(name = "phone")
+    @Type(type="text")
     private String corporatePhoneNumber;
 
-    @Column(name = "start_work_date")
+    @Column(name = "start_work_date", nullable = false)
     private Date startOfWork;
 
     public UserInfo() {

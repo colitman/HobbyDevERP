@@ -30,7 +30,7 @@ public class User implements UniqueNamedEntityInterface {
 	private UserInfo userInfo;
 
 	@ManyToOne
-	@JoinColumn(name = "line_manager_key")
+	@JoinColumn(name = "line_manager_key", nullable = false)
 	private User lineManager;
 
 	@OneToMany(mappedBy = "lineManager", cascade = CascadeType.PERSIST)
