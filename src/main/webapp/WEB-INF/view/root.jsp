@@ -16,10 +16,31 @@
 		<div class="container">
 			<c:import url="/imports/mainNav?root=true"></c:import>
 			<header class="hd-main-header">
-				
+				<h3><span class="js-hd-model-user-fullname"></span></h3>
 			</header>
 			<main>
-				
+				<div class="row">
+					<section class="col-xs-6 col-sm-4" id="js-hd-user-image">
+						<img class="js-hd-model-user-image hd-user-image-large" src="" />
+					</section>
+					
+					<section class="col-xs-6 col-sm-4" id="js-hd-user-info">
+						<header><h4>Information</h4></header>
+						<p><strong>Username</strong>: <span class="js-hd-model-user-username"></span></p>
+						<p><strong>First name</strong>: <span class="js-hd-model-user-firstname"></span></p>
+						<p><strong>Middle name</strong>: <span class="js-hd-model-user-middlename"></span></p>
+						<p><strong>Last name</strong>: <span class="js-hd-model-user-lastname"></span></p>
+						<p><strong>E-mail</strong>: <span class="js-hd-model-user-email"></span></p>
+						<p><strong>Corporate phone</strong>: <span class="js-hd-model-user-corporate-number"></span></p>
+						<p><strong>Start of work</strong>: <span class="js-hd-model-user-start-of-work"></span></p>
+						<p><strong>Line manager</strong>: <span class="js-hd-model-user-linemanager"></span></p>
+						<p><strong>Subordinates count</strong>: <span class="js-hd-model-user-subs-count"></span></p>
+					</section>
+					
+					<section class="col-xs-6 col-sm-4" id="js-hd-user-personal-info">
+						<header><h4>Personal Information<h4></header>
+					</section>
+				</div>
 			</main>
 			
 			<c:import url="/imports/mainFooter"></c:import>

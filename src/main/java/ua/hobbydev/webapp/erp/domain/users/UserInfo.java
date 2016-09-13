@@ -57,7 +57,7 @@ public class UserInfo implements IdentifiedEntityInterface {
         this.lastName = "";
         this.middleName = "";
         this.email = "";
-        this.imageUrl = "/res/app/media/defaults/user_image.png";
+        this.imageUrl = "/res/app/media/defaults/user-image.png";
         this.corporatePhoneNumber = "";
         this.startOfWork = new Date();
     }

@@ -5,6 +5,11 @@ body {
 	padding-bottom: 50px;
 }
 
+header {
+	border-bottom: 1px solid #cccccc;
+	margin-bottom: 20px;
+}
+
 a.disabled,
 i.disabled {
 	color: #808080;
@@ -37,10 +42,7 @@ i.disabled {
 	margin-top: -20px;
 	padding: 20px;
 	border-bottom: 1px solid #cccccc;
-	/*background-color: #f8f8f8;*/
 }
-
-
 
 .hd-main-footer {
 	padding-top: 10px;
@@ -51,6 +53,10 @@ i.disabled {
 .hd-auth-form {
 	max-width: 300px;
 	margin: auto;
+}
+
+.hd-user-image-large {
+	max-width: 90%;
 }
 
 
