@@ -27,10 +27,13 @@ public class User implements UniqueNamedEntityInterface {
 	private String username;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	private PersonalInfo personalInfo;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
 	private UserInfo userInfo;
 
 	@ManyToOne
-	@JoinColumn(name = "line_manager_key", nullable = false)
+	@JoinColumn(name = "line_manager_key"/*, nullable = false*/)
 	private User lineManager;
 
 	@OneToMany(mappedBy = "lineManager", cascade = CascadeType.PERSIST)
@@ -39,7 +42,12 @@ public class User implements UniqueNamedEntityInterface {
 	public User() {
 		this.key = -1L;
 		this.username = "";
-		this.userInfo = null;
+		this.userInfo = new UserInfo();
+		this.userInfo.setUser(this);
+
+		this.personalInfo = new PersonalInfo();
+		this.personalInfo.setUser(this);
+
 		this.lineManager = null;
 		this.subordinates = new ArrayList<User>();
 	}
@@ -68,6 +76,14 @@ public class User implements UniqueNamedEntityInterface {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+
+	public PersonalInfo getPersonalInfo() {
+		return personalInfo;
+	}
+
+	public void setPersonalInfo(PersonalInfo personalInfo) {
+		this.personalInfo = personalInfo;
 	}
 
 	@Override

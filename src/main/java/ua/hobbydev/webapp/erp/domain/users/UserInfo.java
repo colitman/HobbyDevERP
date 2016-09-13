@@ -35,7 +35,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     @Type(type="text")
     private String middleName;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     @Type(type="text")
     private String email;
 

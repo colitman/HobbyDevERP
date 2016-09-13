@@ -18,7 +18,6 @@ public class AuthToken implements IdentifiedEntityInterface {
     @Id
     @Column(name = "key")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Type(type = "integer")
     private Long key;
 
     @ManyToOne

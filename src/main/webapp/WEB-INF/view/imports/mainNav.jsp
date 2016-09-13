@@ -25,14 +25,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<sec:authentication property="name" var="username"></sec:authentication>
-							${username}
+							<span class="js-model-current-username"></span>
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<form id="hd-signout-form" action="${app}/signout" method="post">
-								<input type="hidden" name="username" value="${username}"/>
-							</form>
+							<form id="hd-signout-form" action="${app}/signout" method="post"></form>
 							<li><a href="#" id="js-hd-logout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
 						</ul>
 					</li>

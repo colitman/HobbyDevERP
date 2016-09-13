@@ -4,7 +4,6 @@
  */
 package ua.hobbydev.webapp.erp.config;
 
-import liquibase.integration.spring.SpringLiquibase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder;
@@ -15,8 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-
-import javax.sql.DataSource;
 
 /**
  * Common spring beans to be used in application
@@ -35,7 +32,7 @@ public class Beans {
 	 *
 	 * @return Spring Liquibase bean
      */
-	@Bean
+	/*@Bean
 	@Autowired
 	public SpringLiquibase springLiquibase(DataSource dataSource) {
 		SpringLiquibase bean = new SpringLiquibase();
@@ -44,7 +41,7 @@ public class Beans {
 		bean.setChangeLog("classpath:db_migrations/master.xml");
 
 		return bean;
-	}
+	}*/
 
 	/**
 	 * Password encryptor for Spring security

@@ -16,7 +16,7 @@
 		<div class="container">
 			<c:import url="/imports/mainNav?root=true"></c:import>
 			<header class="hd-main-header">
-				<h1>${username}</h1>
+				
 			</header>
 			<main>
 				
