@@ -25,10 +25,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<span class="js-model-current-username"></span>
+							<span class="js-hd-model-current-username"></span>
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
+							<li class="dropdown-header"><i class="fa fa-user"></i> <span class="js-hd-model-current-fullname"></span></li>
 							<form id="hd-signout-form" action="${app}/signout" method="post"></form>
 							<li><a href="#" id="hd-signout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
 						</ul>

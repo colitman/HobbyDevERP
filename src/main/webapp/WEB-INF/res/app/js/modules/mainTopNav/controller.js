@@ -15,7 +15,7 @@ function MainTopNavController(model, view) {
 	if(userService) {
 		userService.getCurrentUserData()
 			.done(function(data, textStatus, jqXHR) {
-				_this._model._currentUsername = data.username;
+				_this._model.parse(data);
 				_this._view.update();
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
