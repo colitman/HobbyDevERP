@@ -11,14 +11,5 @@ $(document).ready(function() {
 		loader.SERVICES_PATH + 'userService.js'
 	]);
 	
-	var userService = new UserService();
-	userService.getCurrentUserData()
-		.done(function(data, textStatus, jqXHR) {
-			$root_scope.currentUser = data;
-			updateAllModels();
-		})
-		.fail(function(jqXHR, textStatus, errorThrown) {
-			alert(errorThrown);
-		})
-	
+	$root_scope.services.userService = new UserService();
 });

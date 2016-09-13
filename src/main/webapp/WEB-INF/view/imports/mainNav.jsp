@@ -30,7 +30,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<form id="hd-signout-form" action="${app}/signout" method="post"></form>
-							<li><a href="#" id="js-hd-logout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+							<li><a href="#" id="hd-signout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
 						</ul>
 					</li>
 				</ul>

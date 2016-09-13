@@ -1,11 +1,10 @@
 'use strict';
 
 $(document).ready(function() {
+	
 	var loader = new ScriptLoader();
 	
 	loader.load([
-		loader.MODULE_USER_INFO_PATH + 'controller.js',
-		loader.MODULE_USER_INFO_PATH + 'model.js'
+		loader.MODULE_MAIN_TOP_NAV_PATH + 'index.js',
 	]);
-	
 });
