@@ -23,5 +23,6 @@
 		</div>
 		
 		<c:import url="/imports/scripts"></c:import>
+		<script src="${app}/res/app/js/pages/errors/404/index.js"></script>
 	</body>
 </html>

@@ -24,7 +24,9 @@
 						<img class="js-hd-model-user-image hd-user-image-large" src="" />
 					</section>
 					
-					<section class="col-xs-6 col-sm-4" id="js-hd-user-info">
+					<div class="clearfix visible-xs-block"></div>
+					
+					<section class="col-sm-4" id="js-hd-user-info">
 						<header><h4>Information</h4></header>
 						<p><strong>Username</strong>: <span class="js-hd-model-user-username"></span></p>
 						<p><strong>First name</strong>: <span class="js-hd-model-user-firstname"></span></p>
@@ -37,8 +39,11 @@
 						<p><strong>Subordinates count</strong>: <span class="js-hd-model-user-subs-count"></span></p>
 					</section>
 					
-					<section class="col-xs-6 col-sm-4" id="js-hd-user-personal-info">
-						<header><h4>Personal Information<h4></header>
+					<section class="col-sm-4" id="js-hd-user-personal-info">
+						<header><h4>Personal Information</h4></header>
+						<p><strong>Birthday</strong>: <span class="js-hd-model-user-birthday"></span></p>
+						<p><strong>Personal phone</strong>: <span class="js-hd-model-user-personal-phone"></span></p>
+						<p><strong>Skype</strong>: <span class="js-hd-model-user-skype"></span></p>
 					</section>
 				</div>
 			</main>
