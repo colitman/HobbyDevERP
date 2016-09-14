@@ -43,3 +43,16 @@ UserService.prototype.getAllUsers = function() {
 		dataType: 'json'
 	});
 }
+
+/**
+ * Updates a user
+ * @param userInfo
+ */
+UserService.prototype.updateUser = function(userInfo) {
+	return $.ajax({
+		url: APP_ROOT + '/api/users/' + userInfo.username + '?user=' + Cookies.get('user') + '&token=' + Cookies.get('token'),
+		method: 'put',
+		data: JSON.stringify(userInfo),
+		contentType: "application/json"
+	});
+}

@@ -17,6 +17,29 @@ function UserInfoController(model, view) {
 				alert(errorThrown);
 			})
 	}
+	
+	var saveUserInfoButton = this._view._saveUserInfoButton;
+	if(saveUserInfoButton) {
+		saveUserInfoButton.click(function(event) {
+			event.preventDefault();
+			_this.updateUserInfo();
+		});
+	}
+}
+
+UserInfoController.prototype.updateUserInfo = function() {
+	var form = this._view._userEditForm;
+	var userInfo = new UserInfo(form);
+	var userService = $root_scope.services.userService;
+	if(userService) {
+		userService.updateUser(userInfo)
+			.done(function(data, textStatus, jqXHR) {
+				window.location.replace(window.location.protocol + '//' + window.location.host + APP_ROOT + '/users/' + userInfo.username);
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			})
+	}
 }
 
 UserInfoController.prototype.getLineManagers = function() {

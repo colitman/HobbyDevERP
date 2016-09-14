@@ -22,7 +22,7 @@
 					<div class="col-sm-6">
 						<h3>
 							<div class="btn-group pull-right">
-								<a class="btn btn-success" id="hd-save-user-info-button" href="#">Save</a>
+								<a class="btn btn-success js-hd-save-user-info-button" href="#">Save</a>
 								<a class="btn btn-default" href="${app}/users/${username}">Cancel</a>
 							</div>
 						</h3>
@@ -36,7 +36,8 @@
 					</section>
 				</div>
 				<div class="row">
-					<form>
+					<form id="hd-user-edit-form">
+						<input type="hidden" id="username" name="username" class="js-hd-model-user-username">
 						<section class="col-sm-6">
 							<header><h4>Information</h4></header>
 							<div class="form-group">
@@ -62,7 +63,7 @@
 							<div class="form-group">
 								<label for="linemanager">Line Manager</label>
 								<select class="form-control js-hd-model-user-linemanager" name="linemanager" id="linemanager">
-									<option value="">No manager</option>
+									
 								</select>
 							</div>
 						</section>
@@ -83,6 +84,10 @@
 							</div>
 						</section>
 					</form>
+				</div>
+				<div class="btn-group pull-right">
+					<a class="btn btn-success js-hd-save-user-info-button" href="#">Save</a>
+					<a class="btn btn-default" href="${app}/users/${username}">Cancel</a>
 				</div>
 			</main>
 			
