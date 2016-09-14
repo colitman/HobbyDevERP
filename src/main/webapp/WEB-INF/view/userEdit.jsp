@@ -59,11 +59,28 @@
 								<label for="corporate-phone">Corporate Phone</label>
 								<input type="text" name="corporate-phone" id="corporate-phone" class="form-control js-hd-model-user-corporate-number" />
 							</div>
+							<div class="form-group">
+								<label for="linemanager">Line Manager</label>
+								<select class="form-control">
+									<option>No manager</option>
+								</select>
+							</div>
 						</section>
 						
 						<section class="col-sm-6">
 							<header><h4>Personal Information</h4></header>
-							
+							<div class="form-group">
+								<label for="birthday">Birthday</label>
+								<input type="date" name="birthday" id="birthday" class="form-control js-hd-model-user-birthday">
+							</div>
+							<div class="form-group">
+								<label for="personal-phone">Personal Phone</label>
+								<input type="text" name="personal-phone" id="personal-phone" class="form-control js-hd-model-user-personal-phone" />
+							</div>
+							<div class="form-group">
+								<label for="skype">Skype</label>
+								<input type="text" name="skype" id="skype" class="form-control js-hd-model-user-skype" />
+							</div>
 						</section>
 					</form>
 				</div>
