@@ -10,7 +10,7 @@ $(document).ready(function() {
 	]);
 	
 	var userInfoModel = new UserInfoModel();
-	var userInfoEditView = new UserInfoView(userInfoModel);
+	var userInfoView = new UserInfoEditView(userInfoModel);
 	var userInfoController = new UserInfoController(userInfoModel, userInfoView);
 	
 });

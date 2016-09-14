@@ -34,18 +34,38 @@
 					<section class="col-xs-6 col-sm-4">
 						<img class="js-hd-model-user-image hd-user-image-large" src="" />
 					</section>
-					
-					<div class="clearfix visible-xs-block"></div>
-					
-					<section class="col-sm-4">
-						<header><h4>Information</h4></header>
+				</div>
+				<div class="row">
+					<form>
+						<section class="col-sm-6">
+							<header><h4>Information</h4></header>
+							<div class="form-group">
+								<label for="firstName">First Name</label>
+								<input type="text" name="firstName" id="firstName" class="form-control js-hd-model-user-firstname" />
+							</div>
+							<div class="form-group">
+								<label for="middleName">Middle Name</label>
+								<input type="text" name="middleName" id="middleName" class="form-control js-hd-model-user-middlename" />
+							</div>
+							<div class="form-group">
+								<label for="lastName">Last Name</label>
+								<input type="text" name="lastName" id="lastName" class="form-control js-hd-model-user-lastname" />
+							</div>
+							<div class="form-group">
+								<label for="email">E-mail</label>
+								<input type="email" name="email" id="email" class="form-control js-hd-model-user-email" />
+							</div>
+							<div class="form-group">
+								<label for="corporate-phone">Corporate Phone</label>
+								<input type="text" name="corporate-phone" id="corporate-phone" class="form-control js-hd-model-user-corporate-number" />
+							</div>
+						</section>
 						
-					</section>
-					
-					<section class="col-sm-4">
-						<header><h4>Personal Information</h4></header>
-						
-					</section>
+						<section class="col-sm-6">
+							<header><h4>Personal Information</h4></header>
+							
+						</section>
+					</form>
 				</div>
 			</main>
 			

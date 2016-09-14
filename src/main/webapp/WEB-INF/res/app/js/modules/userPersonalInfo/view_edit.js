@@ -5,14 +5,14 @@ function UserPersonalInfoEditView(model) {
 	
 }
 
-UserPersonalInfoView.prototype.update = function() {
+UserPersonalInfoEditView.prototype.update = function() {
 }
 
-UserPersonalInfoView.prototype.setDate = function(property, value) {
+UserPersonalInfoEditView.prototype.setDate = function(property, value) {
 	
 }
 
-UserPersonalInfoView.prototype.setValue = function(property, value){
+UserPersonalInfoEditView.prototype.setValue = function(property, value){
 	
 	
 }
