@@ -61,8 +61,8 @@
 							</div>
 							<div class="form-group">
 								<label for="linemanager">Line Manager</label>
-								<select class="form-control">
-									<option>No manager</option>
+								<select class="form-control js-hd-model-user-linemanager" name="linemanager" id="linemanager">
+									<option value="">No manager</option>
 								</select>
 							</div>
 						</section>

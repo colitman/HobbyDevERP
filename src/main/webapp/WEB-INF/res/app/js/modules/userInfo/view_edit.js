@@ -9,12 +9,14 @@ function UserInfoEditView(model) {
 	this._lastName = $('.js-hd-model-user-lastname');
 	this._email = $('.js-hd-model-user-email');
 	this._corporatePhoneNumber = $('.js-hd-model-user-corporate-number');
+	this._lineManager = $('.js-hd-model-user-linemanager');
 	this._image = $('.js-hd-model-user-image');
 }
 
 UserInfoEditView.prototype.update = function() {
 	this.setFullName(this._model._firstName, this._model._lastName, this._model._middleName);
 	this.setImage(this._model._imageUrl);
+	this.setManagersList(this._model._lineManagers);
 	
 	this.setValue(this._firstName, this._model._firstName);
 	this.setValue(this._middleName, this._model._middleName);
@@ -23,12 +25,16 @@ UserInfoEditView.prototype.update = function() {
 	this.setValue(this._corporatePhoneNumber, this._model._corporatePhoneNumber);
 }
 
-UserInfoEditView.prototype.setUserLink = function(property, user) {
-	
-}
-
-UserInfoEditView.prototype.setDate = function(property, value) {
-	
+UserInfoEditView.prototype.setManagersList = function(managers) {
+	this._lineManager.each(function(index, item) {
+		for(var i = 0; i < managers.length; i++) {
+			var manager = managers[i];
+			var option = $(document.createElement('option'));
+			option.val(manager.key);
+			option.text(manager.firstName + ' ' + manager.lastName);
+			$(item).append(option);
+		}
+	});
 }
 
 UserInfoEditView.prototype.setFullName = function(firstName, lastName, middleName){

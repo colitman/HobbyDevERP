@@ -11,6 +11,8 @@ function UserInfoModel() {
 	this._imageUrl = "";
 	this._corporatePhoneNumber = "";
 	this._startOfWork = "";
+	
+	this._lineManagers = [];
 }
 
 UserInfoModel.prototype.parse = function(data) {

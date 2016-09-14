@@ -13,4 +13,5 @@ $(document).ready(function() {
 	var userInfoView = new UserInfoEditView(userInfoModel);
 	var userInfoController = new UserInfoController(userInfoModel, userInfoView);
 	
+	userInfoController.getLineManagers();
 });

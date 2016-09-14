@@ -18,3 +18,18 @@ function UserInfoController(model, view) {
 			})
 	}
 }
+
+UserInfoController.prototype.getLineManagers = function() {
+	var _this = this;
+	var userService = $root_scope.services.userService;
+	if(userService) {
+		userService.getAllUsers()
+			.done(function(data, textStatus, jqXHR) {
+				_this._model._lineManagers = data;
+				_this._view.update();
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			})
+	}
+}

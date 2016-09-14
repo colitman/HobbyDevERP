@@ -27,3 +27,19 @@ UserService.prototype.getUserData = function(username) {
 		dataType: 'json'
 	});
 }
+
+/**
+ * Gets a collection of all users common information
+ * @returns a promise
+ */
+UserService.prototype.getAllUsers = function() {
+	return $.ajax({
+		url: APP_ROOT + '/api/users',
+		method: 'get',
+		data: {
+			user: Cookies.get('user'),
+			token: Cookies.get('token')
+		},
+		dataType: 'json'
+	});
+}
