@@ -4,29 +4,37 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:set var="app" value="${pageContext.servletContext.contextPath}" />
-<sec:authentication property="name" var="username" />
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<c:import url="/imports/head?pageTitle=Home"></c:import>
+		<c:import url="/imports/head?pageTitle=${username} :: User Details"></c:import>
 	</head>
 	
-	<body data-page="root">
+	<body data-page="user" data-target="${username}">
 		<div class="container">
-			<c:import url="/imports/mainNav?root=true"></c:import>
+			<c:import url="/imports/mainNav?root=false"></c:import>
 			<header class="hd-main-header">
-				<h3><span class="js-hd-model-user-fullname"></span></h3>
+				<div class="row">
+					<div class="col-sm-6">
+						<h3><span class="js-hd-model-user-fullname"></span></h3>
+					</div>
+					<div class="col-sm-6">
+						<h3>
+							<a class="btn btn-default pull-right" href="${app}/users/${username}?action=edit" role="button">Edit</a>
+						</h3>
+					</div>
+				</div>
 			</header>
 			<main>
 				<div class="row">
-					<section class="col-xs-6 col-sm-4" id="js-hd-user-image">
+					<section class="col-xs-6 col-sm-4">
 						<img class="js-hd-model-user-image hd-user-image-large" src="" />
 					</section>
 					
 					<div class="clearfix visible-xs-block"></div>
 					
-					<section class="col-sm-4" id="js-hd-user-info">
+					<section class="col-sm-4">
 						<header><h4>Information</h4></header>
 						<p><strong>Username</strong>: <span class="js-hd-model-user-username"></span></p>
 						<p><strong>First name</strong>: <span class="js-hd-model-user-firstname"></span></p>
@@ -39,7 +47,7 @@
 						<p><strong>Subordinates count</strong>: <span class="js-hd-model-user-subs-count"></span></p>
 					</section>
 					
-					<section class="col-sm-4" id="js-hd-user-personal-info">
+					<section class="col-sm-4">
 						<header><h4>Personal Information</h4></header>
 						<p><strong>Birthday</strong>: <span class="js-hd-model-user-birthday"></span></p>
 						<p><strong>Personal phone</strong>: <span class="js-hd-model-user-personal-phone"></span></p>
@@ -54,6 +62,6 @@
 		<div class="hd-modals"></div>
 
 		<c:import url="/imports/scripts"></c:import>
-		<script src="${app}/res/app/js/pages/root/index.js"></script>
+		<script src="${app}/res/app/js/pages/user/index.js"></script>
 	</body>
 </html>

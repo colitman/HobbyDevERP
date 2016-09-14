@@ -22,7 +22,13 @@ UserInfoModel.prototype.parse = function(data) {
 	this._middleName = data.userInfo.middleName;
 	this._lastName = data.userInfo.lastName;
 	this._email = data.userInfo.email;
-	this._imageUrl = APP_ROOT + data.userInfo.imageUrl;
+	
+	if(data.userInfo.imageUrl.indexOf('http') === 0) {
+		this._imageUrl = data.userInfo.imageUrl;
+	} else {
+		this._imageUrl = APP_ROOT + data.userInfo.imageUrl;
+	}
+	
 	this._corporatePhoneNumber = data.userInfo.corporatePhoneNumber;
 	this._startOfWork = new Date(data.userInfo.startOfWork);
 }

@@ -8,7 +8,7 @@ function UserPersonalInfoController(model, view) {
 	
 	var userService = $root_scope.services.userService;
 	if(userService) {
-		userService.getCurrentUserData()
+		userService.getUserData($('body').data('target'))
 			.done(function(data, textStatus, jqXHR) {
 				_this._model.parse(data);
 				_this._view.update();

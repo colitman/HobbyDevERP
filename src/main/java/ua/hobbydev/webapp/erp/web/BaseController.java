@@ -17,9 +17,10 @@ public class BaseController {
 
 	@PreAuthorize(value = "isAuthenticated()")
 	@RequestMapping(path="/")
-	public ModelAndView getRootPage(ModelAndView mv) {
+	public ModelAndView getRootPage(ModelAndView mv, Authentication auth) {
 
-		mv.setViewName("root");
+		mv.addObject("username", auth.getName());
+		mv.setViewName("user");
 		
 		return mv;
 	}

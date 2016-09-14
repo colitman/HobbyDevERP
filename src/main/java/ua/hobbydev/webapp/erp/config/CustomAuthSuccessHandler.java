@@ -36,6 +36,8 @@ public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuc
         response.addCookie(tokenCookie);
         response.addCookie(userCookie);
 
+
+
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

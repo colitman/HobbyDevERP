@@ -9,8 +9,16 @@ function UserService() {
  * @returns a promise
  */
 UserService.prototype.getCurrentUserData = function() {
+	return this.getUserData(Cookies.get('user'));
+}
+
+/**
+ * Gets information on user with provided username
+ * @returns a promise
+ */
+UserService.prototype.getUserData = function(username) {
 	return $.ajax({
-		url: APP_ROOT + '/api/users/' + Cookies.get('user'),
+		url: APP_ROOT + '/api/users/' + username,
 		method: 'get',
 		data: {
 			user: Cookies.get('user'),
