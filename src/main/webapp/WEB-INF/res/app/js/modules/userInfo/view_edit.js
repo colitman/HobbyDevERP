@@ -3,6 +3,7 @@
 function UserInfoEditView(model) {
 	this._model = model;
 	
+	this._changeImageButton = $('#hd-change-user-image-button');
 	this._saveUserInfoButton = $('.js-hd-save-user-info-button');
 	this._userEditForm = $('#hd-user-edit-form');
 	
@@ -41,7 +42,6 @@ UserInfoEditView.prototype.setSelectedManager = function(manager) {
 UserInfoEditView.prototype.setManagersList = function(managers) {
 	this._lineManager.each(function(index, item) {
 		$(item).html('<option value="">No manager</option>');
-		console.log(index + ' run of manager options');
 		for(var i = 0; i < managers.length; i++) {
 			var manager = managers[i];
 			var option = $(document.createElement('option'));

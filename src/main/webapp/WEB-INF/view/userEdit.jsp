@@ -32,7 +32,12 @@
 			<main>
 				<div class="row">
 					<section class="col-xs-6 col-sm-4">
-						<img class="js-hd-model-user-image hd-user-image-large" src="" />
+						<div class="hd-ovelayed-img-container">
+							<img class="js-hd-model-user-image hd-user-image-large" src="" />
+							<aside class="hd-img-overlay" id="hd-change-user-image-button">
+								Change Image
+							</aside>
+						</div>
 					</section>
 				</div>
 				<div class="row">

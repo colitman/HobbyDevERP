@@ -60,5 +60,21 @@ i.disabled {
 	max-width: 90%;
 }
 
+.hd-ovelayed-img-container {
+	position: relative;
+}
+
+.hd-img-overlay {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	width: 90%;
+	background: black;
+	color: white;
+	text-align: center;
+	cursor: pointer;
+	padding: 15px 0;
+}
+
 
 
