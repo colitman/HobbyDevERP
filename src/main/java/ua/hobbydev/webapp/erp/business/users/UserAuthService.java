@@ -20,6 +20,8 @@ import ua.hobbydev.webapp.erp.data.auth.AuthDAOInterface;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Map;
 
 @Service
 public class UserAuthService implements UserAuthServiceInterface {
@@ -53,6 +55,20 @@ public class UserAuthService implements UserAuthServiceInterface {
         if(!userService.exists(username)) {
             User user = new User();
             user.setUsername(authUser.getUsername());
+            Map<String, String> details = new Hashtable<String, String>();
+
+            try {
+                details = getAuthDao().getAdditionalUserDetails(username);
+            } catch (ObjectNotExistsException e) {
+                throw new UsernameNotFoundException("Username not found:[" + username + "]");
+            }
+
+            for(String key:details.keySet()) {
+                String keyValue = details.get(key);
+
+                // TODO - FINISH THIS!!!!!!!!!!!!!!
+            }
+
             try {
                 userService.add(user);
             } catch (ResourceAlreadyExistsException e) {

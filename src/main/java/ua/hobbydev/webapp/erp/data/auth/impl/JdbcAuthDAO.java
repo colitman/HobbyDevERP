@@ -6,7 +6,9 @@ package ua.hobbydev.webapp.erp.data.auth.impl;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import ua.hobbydev.webapp.erp.data.ObjectNotExistsException;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOInterface;
@@ -15,6 +17,10 @@ import java.beans.PropertyVetoException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
 
 @Repository
@@ -75,5 +81,35 @@ public class JdbcAuthDAO implements AuthDAOInterface {
         );
 
         return password;
+    }
+
+    @Override
+    public Map<String, String> getAdditionalUserDetails(String username) throws ObjectNotExistsException {
+        Map<String, String> details = new Hashtable<String, String>();
+
+        if(!usernameExists(username)) {
+            throw new ObjectNotExistsException("User with provided username not found:[" + username + "]");
+        }
+
+        JdbcTemplate template = new JdbcTemplate(dataSource);
+
+        template.query(props.getProperty(
+                "auth.jdbc.query.getAdditionalDetails"),
+                new String[]{username},
+                new ResultSetExtractor<Map<String, String>>() {
+
+                    @Override
+                    public Map<String, String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                        Map<String, String> data = new Hashtable<String, String>();
+
+                        while (rs.next()) {
+                            data.put(rs.getString(1), String.valueOf(rs.getObject(2)));
+                        }
+
+                        return data;
+                    }
+                });
+
+        return details;
     }
 }
