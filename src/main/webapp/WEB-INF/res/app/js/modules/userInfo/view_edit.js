@@ -4,8 +4,11 @@ function UserInfoEditView(model) {
 	this._model = model;
 	
 	this._changeImageButton = $('#hd-change-user-image-button');
+	this._saveImageButton = $('#hd-save-user-image-button');
 	this._saveUserInfoButton = $('.js-hd-save-user-info-button');
+	
 	this._userEditForm = $('#hd-user-edit-form');
+	this._changeImageModal = $('#hd-modal-user-image-change');
 	
 	this._username = $('.js-hd-model-user-username');
 	this._fullName = $('.js-hd-model-user-fullname');
@@ -65,7 +68,11 @@ UserInfoEditView.prototype.setFullName = function(firstName, lastName, middleNam
 
 UserInfoEditView.prototype.setImage = function(url){
 	this._image.each(function(index, item) {
-		$(item).attr('src', url);
+		if($(item).is('img')) {
+			$(item).attr('src', APP_ROOT + url);
+		} else if($(item).is('input')) {
+			$(item).val(url);
+		}
 	});
 }
 

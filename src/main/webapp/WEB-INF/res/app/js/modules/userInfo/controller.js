@@ -30,21 +30,25 @@ function UserInfoController(model, view) {
 	if(changeImageButton) {
 		this._view._image.parent().hover(
 			function(event) {
-				_this.showChangeImageButton(changeImageButton);
+				changeImageButton.css('display', 'block');
 			},
 			function(event) {
-				_this.hideChangeImageButton(changeImageButton);
+				changeImageButton.css('display', 'none');
 			}
 		);
+		
+		changeImageButton.click(function(event) {
+			_this._view._changeImageModal.modal('show');
+		});
+		
+		this._view._saveImageButton.click(function(event) {
+			_this.updateUserImage(_this._view._changeImageModal);
+		});
 	}
 }
 
-UserInfoController.prototype.showChangeImageButton = function(button) {
-	button.css('display', 'block');
-}
-
-UserInfoController.prototype.hideChangeImageButton = function(button) {
-	button.css('display', 'none');
+UserInfoController.prototype.updateUserImage = function(modal) {
+	alert('will change');
 }
 
 UserInfoController.prototype.updateUserInfo = function() {

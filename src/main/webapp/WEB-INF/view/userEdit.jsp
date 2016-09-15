@@ -99,7 +99,9 @@
 			<c:import url="/imports/mainFooter"></c:import>
 		</div>
 
-		<div class="hd-modals"></div>
+		<div class="hd-modals">
+			<c:import url="/imports/modals/userImageChangeModal"></c:import>
+		</div>
 
 		<c:import url="/imports/scripts"></c:import>
 		<script src="${app}/res/app/js/pages/userEdit/index.js"></script>

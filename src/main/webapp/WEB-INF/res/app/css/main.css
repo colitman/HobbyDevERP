@@ -45,6 +45,11 @@ i.disabled {
 	border-bottom: 1px solid #cccccc;
 }
 
+header.modal-header {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
 .hd-main-footer {
 	padding-top: 10px;
 	background-color: #f8f8f8;

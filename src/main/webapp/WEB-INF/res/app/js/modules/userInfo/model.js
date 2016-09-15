@@ -28,7 +28,7 @@ UserInfoModel.prototype.parse = function(data) {
 	if(data.userInfo.imageUrl.indexOf('http') === 0) {
 		this._imageUrl = data.userInfo.imageUrl;
 	} else {
-		this._imageUrl = APP_ROOT + data.userInfo.imageUrl;
+		this._imageUrl = data.userInfo.imageUrl;
 	}
 	
 	this._corporatePhoneNumber = data.userInfo.corporatePhoneNumber;
