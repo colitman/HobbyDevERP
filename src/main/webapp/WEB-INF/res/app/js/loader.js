@@ -9,6 +9,7 @@ ScriptLoader.prototype.MODELS_PATH = 'models/';
 ScriptLoader.prototype.MODULE_MAIN_TOP_NAV_PATH = 'modules/mainTopNav/';
 ScriptLoader.prototype.MODULE_USER_INFO_PATH = 'modules/userInfo/';
 ScriptLoader.prototype.MODULE_USER_PERSONAL_INFO_PATH = 'modules/userPersonalInfo/';
+ScriptLoader.prototype.MODULE_ROLES_PATH = 'modules/roles/';
 
 ScriptLoader.prototype.SERVICES_PATH = 'services/';
 

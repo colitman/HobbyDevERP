@@ -14,13 +14,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.hobbydev.webapp.erp.business.ResourceAlreadyExistsException;
+import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
 import ua.hobbydev.webapp.erp.data.ObjectNotExistsException;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOFactoryInterface;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOInterface;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
-import java.util.Collection;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -56,8 +57,10 @@ public class UserAuthService implements UserAuthServiceInterface {
             throw new UsernameNotFoundException("Username not found:[" + username + "]");
         }
 
+        User user = null;
+
         if(!userService.exists(username)) {
-            User user = new User();
+            user = new User();
             user.setUsername(authUser.getUsername());
             Map<String, String> details = new Hashtable<String, String>();
 
@@ -79,6 +82,19 @@ public class UserAuthService implements UserAuthServiceInterface {
             } catch (ResourceAlreadyExistsException e) {
                 //TODO add logging
             }
+        } else {
+            try {
+                user = userService.get(username);
+            } catch (ResourceNotFoundException e) {
+                throw new UsernameNotFoundException("Username not found:[" + username + "]");
+            }
+        }
+
+        if(user.getRole() != null) {
+            String authoritiesString = user.getRole().getAuthorities();
+            List<GrantedAuthority> authoritiesList = AuthorityUtils.commaSeparatedStringToAuthorityList(authoritiesString);
+
+            authUser.setAuthorities(authoritiesList);
         }
 
         return authUser;
@@ -87,6 +103,7 @@ public class UserAuthService implements UserAuthServiceInterface {
     private class AuthUser implements UserDetails {
         private String username;
         private String password;
+        private List<GrantedAuthority> authorities = AuthorityUtils.NO_AUTHORITIES;
 
         @Override
         public String getUsername() {
@@ -107,8 +124,14 @@ public class UserAuthService implements UserAuthServiceInterface {
         }
 
         @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return AuthorityUtils.NO_AUTHORITIES;
+        public List<GrantedAuthority> getAuthorities() {
+            return authorities;
+        }
+
+        public void setAuthorities(List<GrantedAuthority> authorities) {
+            if(authorities != null) {
+                this.authorities = authorities;
+            }
         }
 
         @Override

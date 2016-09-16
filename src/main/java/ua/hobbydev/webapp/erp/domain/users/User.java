@@ -7,6 +7,7 @@ package ua.hobbydev.webapp.erp.domain.users;
 import org.hibernate.annotations.Type;
 import ua.hobbydev.webapp.erp.data.NameColumn;
 import ua.hobbydev.webapp.erp.domain.UniqueNamedEntityInterface;
+import ua.hobbydev.webapp.erp.domain.roles.UserRole;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class User implements UniqueNamedEntityInterface {
 	@Type(type="text")
 	private String username;
 
+	@ManyToOne
+	@JoinColumn(name = "user_role_key")
+	private UserRole role;
+
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
 	private PersonalInfo personalInfo;
 
@@ -42,6 +47,9 @@ public class User implements UniqueNamedEntityInterface {
 	public User() {
 		this.key = -1L;
 		this.username = "";
+
+		this.role = null;
+
 		this.userInfo = new UserInfo();
 		this.userInfo.setUser(this);
 
@@ -68,6 +76,14 @@ public class User implements UniqueNamedEntityInterface {
 	
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
 	public UserInfo getUserInfo() {

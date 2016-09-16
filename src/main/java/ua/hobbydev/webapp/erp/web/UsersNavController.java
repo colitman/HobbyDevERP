@@ -22,8 +22,6 @@ public class UsersNavController {
 									@RequestParam (required = false) String action,
 									ModelAndView mv) {
 
-		mv.addObject("username", username);
-
 		if(action == null) {
 			mv.setViewName("user");
 			return mv;
@@ -37,6 +35,7 @@ public class UsersNavController {
 				mv.setViewName("user");
 		}
 
+		mv.addObject("username", username);
 		return mv;
 	}
 }
