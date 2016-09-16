@@ -22,7 +22,7 @@
 				</div>
 			</header>
 			<main>
-				<button class="btn btn-success pull-right">Add role</button>
+				<button type="button" id="hd-add-new-role-button" class="btn btn-success pull-right">Add role</button>
 				<table id="js-hd-model-roles-table" class="table table-hover">
 					<thead>
 						<tr>
@@ -42,7 +42,9 @@
 			<c:import url="/imports/mainFooter"></c:import>
 		</div>
 
-		<div class="hd-modals"></div>
+		<div class="hd-modals">
+			<c:import url="/imports/modals/newRoleModal"></c:import>
+		</div>
 
 		<c:import url="/imports/scripts"></c:import>
 		<script src="${app}/res/app/js/pages/admin/roles/index.js"></script>

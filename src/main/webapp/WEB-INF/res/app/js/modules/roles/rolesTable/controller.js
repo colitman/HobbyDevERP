@@ -18,3 +18,4 @@ function RolesTableController(model, view) {
 			})
 	}
 }
+

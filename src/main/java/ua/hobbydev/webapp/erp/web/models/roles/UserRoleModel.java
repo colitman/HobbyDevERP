@@ -32,7 +32,11 @@ public class UserRoleModel {
             this.users.add(new FlatUserCollectionItem(u));
         }
 
-        this.authorities = role.getAuthorities().split(",");
+        if(role.getAuthorities().trim().isEmpty()) {
+            this.authorities = new String[0];
+        } else {
+            this.authorities = role.getAuthorities().split(",");
+        }
 
     }
 

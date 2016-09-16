@@ -7,6 +7,7 @@ $(document).ready(function() {
 	loader.load([
 		loader.MODULE_MAIN_TOP_NAV_PATH + 'index.js',
 		loader.MODULE_ROLES_PATH + 'rolesTable/index.js',
+		loader.MODULE_ROLES_PATH + 'role/index_new.js',
 		loader.SERVICES_PATH + 'userService.js',
 		loader.SERVICES_PATH + 'roleService.js'
 	]);
