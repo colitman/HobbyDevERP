@@ -70,7 +70,7 @@ UserInfoView.prototype.setFullName = function(firstName, lastName, middleName){
 
 UserInfoView.prototype.setImage = function(url){
 	this._image.each(function(index, item) {
-		$(item).attr('src', url);
+		$(item).attr('src', APP_ROOT + url);
 	});
 	
 }

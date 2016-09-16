@@ -69,7 +69,7 @@ public class UserInfo implements IdentifiedEntityInterface {
 
     @Override
     public void setKey(Long key) {
-        this.key = key;
+        this.key = key == null? -1L:key;
     }
 
     public User getUser() {
@@ -85,7 +85,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName == null? "":firstName;
     }
 
     public String getLastName() {
@@ -93,7 +93,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName == null?"":lastName;
     }
 
     public String getMiddleName() {
@@ -109,7 +109,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email == null?"":email;
     }
 
     public String getImageUrl() {
@@ -117,7 +117,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.imageUrl = imageUrl == null || imageUrl.trim().isEmpty()? "/res/app/media/defaults/user-image.png":imageUrl;
     }
 
     public String getCorporatePhoneNumber() {
@@ -125,7 +125,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     }
 
     public void setCorporatePhoneNumber(String corporatePhoneNumber) {
-        this.corporatePhoneNumber = corporatePhoneNumber;
+        this.corporatePhoneNumber = corporatePhoneNumber == null?"":corporatePhoneNumber;
     }
 
     public Date getStartOfWork() {
@@ -133,6 +133,6 @@ public class UserInfo implements IdentifiedEntityInterface {
     }
 
     public void setStartOfWork(Date startOfWork) {
-        this.startOfWork = startOfWork;
+        this.startOfWork = startOfWork == null?new Date():startOfWork;
     }
 }

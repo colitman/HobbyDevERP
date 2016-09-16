@@ -93,7 +93,7 @@ public class JdbcAuthDAO implements AuthDAOInterface {
 
         JdbcTemplate template = new JdbcTemplate(dataSource);
 
-        template.query(props.getProperty(
+        details = template.query(props.getProperty(
                 "auth.jdbc.query.getAdditionalDetails"),
                 new String[]{username},
                 new ResultSetExtractor<Map<String, String>>() {

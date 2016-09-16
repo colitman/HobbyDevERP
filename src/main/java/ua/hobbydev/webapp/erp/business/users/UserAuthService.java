@@ -27,6 +27,10 @@ import java.util.Map;
 public class UserAuthService implements UserAuthServiceInterface {
 
     private @Value("${auth.dao.name}") String authDaoName;
+    private @Value("${auth.jdbc.details.firstName}") String firstName;
+    private @Value("${auth.jdbc.details.lastName}") String lastName;
+    private @Value("${auth.jdbc.details.email}") String email;
+    private @Value("${auth.jdbc.details.corporatePhone}") String corporatePhone;
 
     @Autowired
     private AuthDAOFactoryInterface authDaoFactory;
@@ -63,11 +67,12 @@ public class UserAuthService implements UserAuthServiceInterface {
                 throw new UsernameNotFoundException("Username not found:[" + username + "]");
             }
 
-            for(String key:details.keySet()) {
-                String keyValue = details.get(key);
+            user.getUserInfo().setFirstName(details.get(firstName));
+            user.getUserInfo().setLastName(details.get(lastName));
+            user.getUserInfo().setEmail(details.get(email));
+            user.getUserInfo().setCorporatePhoneNumber(details.get(corporatePhone));
 
-                // TODO - FINISH THIS!!!!!!!!!!!!!!
-            }
+            //TODO add support for dates
 
             try {
                 userService.add(user);
