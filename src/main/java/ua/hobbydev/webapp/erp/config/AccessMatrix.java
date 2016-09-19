@@ -16,6 +16,7 @@ public class AccessMatrix {
         VIEW_ADMIN_MENU,
         VIEW_ROLES_ADMIN_PAGE,
         VIEW_USERS_ADMIN_PAGE,
+        VIEW_ROLE_EDIT_PAGE,
 
         ADD_USER_ROLE,
 

@@ -25,11 +25,6 @@ RolesTableView.prototype.rebuildTable = function(rolesList) {
 		var _td_auths = $(document.createElement('td'));
 		var _td_actions = $(document.createElement('td'));
 		
-		var _action_edit_link = $(document.createElement('a'));
-		_action_edit_link.attr('href', APP_ROOT + '/admin/roles/' + role.key + '?action=edit');
-		_action_edit_link.html('<i class="fa fa-pencil"></i>');
-		_td_actions.append(_action_edit_link);
-		
 		if(role.users.length === 0) {
 			var _action_delete_link = $(document.createElement('a'));
 			_action_delete_link.attr('href', '#');

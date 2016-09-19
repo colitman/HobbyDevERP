@@ -7,11 +7,9 @@ package ua.hobbydev.webapp.erp.web.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.hobbydev.webapp.erp.business.ResourceAlreadyExistsException;
+import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
 import ua.hobbydev.webapp.erp.business.roles.RoleServiceInterface;
 import ua.hobbydev.webapp.erp.domain.roles.UserRole;
 import ua.hobbydev.webapp.erp.web.models.roles.UserRoleModel;
@@ -38,6 +36,23 @@ public class RolesController {
         }
 
         return new ResponseEntity<List<UserRoleModel>>(roles, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "roles/{key}", method = RequestMethod.GET)
+    public ResponseEntity<UserRoleModel> getRole(@RequestParam String user,
+                                                 @RequestParam String token,
+                                                 @PathVariable String key) {
+        UserRole dbRole = null;
+        try {
+            dbRole = roleService.get(Long.valueOf(key));
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<UserRoleModel>(HttpStatus.NOT_FOUND);
+        }
+
+        UserRoleModel role = new UserRoleModel(dbRole);
+
+        return new ResponseEntity<UserRoleModel>(role, HttpStatus.OK);
+
     }
 
     @RequestMapping(path = "roles", method = RequestMethod.POST)

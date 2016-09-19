@@ -21,13 +21,19 @@ function RoleController(model, view) {
 		}
 	}
 	
-	this._view._addNewButton.click(function(event) {
-		_this._view._newRoleModal.modal('show');
-	});
+	var addNewRoleButton = this._view._addNewButton;
+	if(addNewRoleButton) {
+		addNewRoleButton.click(function(event) {
+			_this._view._newRoleModal.modal('show');
+		});
+	}
 	
-	this._view._saveNewButton.click(function(event) {
-		_this.saveNewRole();
-	});
+	var saveNewRoleButton = this._view._saveNewButton;
+	if(saveNewRoleButton) {
+		saveNewRoleButton.click(function(event) {
+			_this.saveNewRole();
+		});
+	}
 }
 
 RoleController.prototype.saveNewRole = function() {

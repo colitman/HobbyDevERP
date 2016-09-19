@@ -16,6 +16,18 @@ RoleService.prototype.getAllRoles = function(){
 	})
 }
 
+RoleService.prototype.getRoleData = function(roleKey) {
+	return $.ajax({
+		url: APP_ROOT + '/api/roles/' + roleKey,
+		method: 'get',
+		data: {
+			user: Cookies.get('user'),
+			token: Cookies.get('token')
+		},
+		dataType: 'json'
+	})
+}
+
 RoleService.prototype.saveNewRole = function(roleInfo) {
 	return $.ajax({
 		url: APP_ROOT + '/api/roles',
