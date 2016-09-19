@@ -22,21 +22,25 @@
 				</div>
 			</header>
 			<main>
-				<button type="button" id="hd-add-new-role-button" class="btn btn-success pull-right">Add role</button>
-				<table id="js-hd-model-roles-table" class="table table-hover">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>Users Count</th>
-							<th>Authorities Count</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
+				<div class="row">
+					<button type="button" id="hd-add-new-role-button" class="btn btn-success pull-right">Add role</button>
+				</div>
+				<div class="table-responsive">
+					<table id="js-hd-model-roles-table" class="table table-hover">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Users Count</th>
+								<th>Authorities Count</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
 			</main>
 			
 			<c:import url="/imports/mainFooter"></c:import>
