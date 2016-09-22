@@ -1,15 +1,17 @@
 'use strict';
 
 function MainTopNavModel() {
-	this._currentUsername = "";
-	this._currentFirstName = "";
-	this._currentMiddleName = "";
-	this._currentLastName = "";
+	this.username = '';
+	this.fullName = '';
 }
 
 MainTopNavModel.prototype.parse = function(data) {
-	this._currentUsername = data.username;
-	this._currentFirstName = data.userInfo.firstName;
-	this._currentMiddleName = data.userInfo.middleName;
-	this._currentLastName = data.userInfo.lastName;
+	this.username = data.username;
+	
+	var _fullName = '';
+	_fullName += data.userInfo.firstName? data.userInfo.firstName + ' ':'';
+	_fullName += data.userInfo.middleName? data.userInfo.middleName + ' ':'';
+	_fullName += data.userInfo.lastName? data.userInfo.lastName:'';
+	
+	this.fullName = _fullName;
 }
