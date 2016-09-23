@@ -7,11 +7,9 @@ function View(model) {
 View.prototype.update = function() {
 	var viewElements = Object.keys(this);
 	
-	//var viewElement;
-	
 	for(var i in viewElements) {
 		var viewElement = viewElements[i];
-		if(viewElement.indexOf('_') === 0) {
+		if(viewElement.indexOf('_') === 0 || viewElement.indexOf('$') === 0) {
 			continue;
 		}
 		this.setValue(this[viewElement], this._model[viewElement])
@@ -19,51 +17,58 @@ View.prototype.update = function() {
 }
 
 View.prototype.setValue = function(property, value) {
-	if(property.is('input')) {
-		property.each(function(index, item) {
-			if(property.attr('type') === 'date') {
-				var dateValue = this.formatDateForInput(value);
+	
+	var _this = this;
+	
+	if(!value) {
+		return;
+	}
+	
+	if(!property) {
+		return;
+	}
+	
+	property.each(function(index, item) {
+		if($(item).is('input')) {
+			if($(item).attr('type') === 'date') {
+				var dateValue = _this.formatDateForInput(value.content);
 				$(item).val(dateValue);
 			} else {
 				$(item).val(value);
 			}
-		});
-	} else if (property.is('span')) {
-		property.each(function(index, item) {
+		} else if ($(item).is('span')) {
 			if(value.isDate) {
-				var dateValue = this.formatDateForSpan(value);
+				var dateValue = _this.formatDateForSpan(value.content);
 				$(item).text(dateValue);
 			} else {
 				$(item).text(value);
 			}
-		});
-	} else if(property.is('img')) {
-		property.each(function(index, item) {
-			$(item).attr('src', value);
-		});
-	} else if(property.is('a')) {
-		property.each(function(index, item) {
-			$(item).attr('href', $(item).attr('href') + value);
-			$(item).text(value);
-		});
-	} else if(property.is('select')) {
-		property.each(function(index, item) {
+		} else if($(item).is('img')) {
+			if(value.indexOf('http') === 0) {
+				$(item).attr('src', value);
+			} else {
+				$(item).attr('src', APP_ROOT + value);
+			}
+		} else if($(item).is('a')) {
+			$(item).attr('href', $(item).attr('href') + value.ref);
+			$(item).text(value.content);
+		} else if($(item).is('select')) {
 			$(item).html('<option value="">Select</option>');
 			for(var i = 0; i < value.length; i++) {
 				var option = value[i];
 				var optionElement = $(document.createElement('option'));
 				optionElement.val(option.key);
-				optionElement.text(option.name);
+				optionElement.text(option.content);
 				optionElement.prop('selected', option.isSelected);
 				$(item).append(optionElement);
 			}
-		});
-	}
+		}
+	});
 }
 
 View.prototype.formatDateForSpan = function(date) {
 	if(!date) {
-		return '';
+		return 'as';
 	}
 	
 	var dateString = date.toLocaleString('en-US', {

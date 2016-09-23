@@ -1,7 +1,7 @@
 'use strict';
 
 function UserInfoEditView(model) {
-	this._model = model;
+	/*this._model = model;
 	
 	this._changeImageButton = $('#hd-change-user-image-button');
 	this._saveImageButton = $('#hd-save-user-image-button');
@@ -18,9 +18,9 @@ function UserInfoEditView(model) {
 	this._email = $('.js-hd-model-user-email');
 	this._corporatePhoneNumber = $('.js-hd-model-user-corporate-number');
 	this._lineManager = $('.js-hd-model-user-linemanager');
-	this._image = $('.js-hd-model-user-image');
+	this._image = $('.js-hd-model-user-image');*/
 }
-
+/*
 UserInfoEditView.prototype.update = function() {
 	this.setFullName(this._model._firstName, this._model._lastName, this._model._middleName);
 	this.setImage(this._model._imageUrl);
@@ -34,14 +34,16 @@ UserInfoEditView.prototype.update = function() {
 	this.setValue(this._email, this._model._email);
 	this.setValue(this._corporatePhoneNumber, this._model._corporatePhoneNumber);
 }
-
+*/
+/*
 UserInfoEditView.prototype.setSelectedManager = function(manager) {
 	if(!manager) {
 		return;
 	}
 	$('option[value="' + manager.key + '"]', this._lineManager).prop('selected', true);
 }
-
+*/
+/*
 UserInfoEditView.prototype.setManagersList = function(managers) {
 	this._lineManager.each(function(index, item) {
 		$(item).html('<option value="">No manager</option>');
@@ -54,7 +56,8 @@ UserInfoEditView.prototype.setManagersList = function(managers) {
 		}
 	});
 }
-
+*/
+/*
 UserInfoEditView.prototype.setFullName = function(firstName, lastName, middleName){
 	var fullName = '';
 	fullName += firstName? firstName + ' ':'';
@@ -65,7 +68,8 @@ UserInfoEditView.prototype.setFullName = function(firstName, lastName, middleNam
 		$(item).text(fullName);
 	});
 }
-
+*/
+/*
 UserInfoEditView.prototype.setImage = function(url){
 	this._image.each(function(index, item) {
 		if($(item).is('img')) {
@@ -75,9 +79,11 @@ UserInfoEditView.prototype.setImage = function(url){
 		}
 	});
 }
-
+*/
+/*
 UserInfoEditView.prototype.setValue = function(property, value){
 	property.each(function(index, item) {
 		$(item).val(value);
 	});
 }
+*/

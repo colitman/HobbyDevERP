@@ -67,7 +67,7 @@
 							</div>
 							<div class="form-group">
 								<label for="linemanager">Line Manager</label>
-								<select class="form-control js-hd-model-user-linemanager" name="linemanager" id="linemanager">
+								<select class="form-control js-hd-model-user-linemanagers" name="linemanager" id="linemanager">
 									
 								</select>
 							</div>
@@ -104,6 +104,6 @@
 		</div>
 
 		<c:import url="/imports/scripts"></c:import>
-		<script src="${app}/res/app/js/pages/userEdit/index.js"></script>
+		<script src="${app}/res/app/js/pages/user/index.js"></script>
 	</body>
 </html>

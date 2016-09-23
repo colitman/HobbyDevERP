@@ -1,36 +1,59 @@
 'use strict';
 
 function UserInfoModel() {
-	this._username = "";
-	this._lineManager = {};
-	this._subordinates = [];
-	this._firstName = "";
-	this._middleName = "";
-	this._lastName = "";
-	this._email = "";
-	this._imageUrl = "";
-	this._corporatePhoneNumber = "";
-	this._startOfWork = "";
-	
-	this._lineManagers = [];
+	this.username = '';
+	this.lineManager = {};
+	this.lineManagers = [];
+	this.subordinates = 0;
+	this.firstName = '';
+	this.middleName = '';
+	this.lastName = '';
+	this.fullName = '';
+	this.email = '';
+	this.image = '';
+	this.corporatePhoneNumber = '';
+	this.personalPhoneNumber = '';
+	this.skype = '';
+	this.startOfWork = {isDate:true};
+	this.birthday = null;
 }
 
 UserInfoModel.prototype.parse = function(data) {
-	this._username = data.username;
-	this._lineManager = data.lineManager;
-	this._subordinates = data.subordinates;
-		
-	this._firstName = data.userInfo.firstName;
-	this._middleName = data.userInfo.middleName;
-	this._lastName = data.userInfo.lastName;
-	this._email = data.userInfo.email;
+	this.username = data.username;
 	
-	if(data.userInfo.imageUrl.indexOf('http') === 0) {
-		this._imageUrl = data.userInfo.imageUrl;
-	} else {
-		this._imageUrl = data.userInfo.imageUrl;
+	this.lineManager = data.lineManager;
+	if(this.lineManager) {
+		this.lineManager.content = data.lineManager.userInfo.firstName + ' ' + data.lineManager.userInfo.lastName;
+		this.lineManager.ref = data.lineManager.username;
 	}
 	
-	this._corporatePhoneNumber = data.userInfo.corporatePhoneNumber;
-	this._startOfWork = new Date(data.userInfo.startOfWork);
+	this.subordinates = data.subordinates.length;
+		
+	this.firstName = data.userInfo.firstName;
+	this.middleName = data.userInfo.middleName;
+	this.lastName = data.userInfo.lastName;
+	
+	var _fullName = '';
+	_fullName += data.userInfo.firstName? data.userInfo.firstName + ' ':'';
+	_fullName += data.userInfo.middleName? data.userInfo.middleName + ' ':'';
+	_fullName += data.userInfo.lastName? data.userInfo.lastName:'';
+	
+	this.fullName = _fullName;
+	
+	this.email = data.userInfo.email;
+	this.image = data.userInfo.imageUrl;
+	this.corporatePhoneNumber = data.userInfo.corporatePhoneNumber;
+	this.personalPhoneNumber = data.personalInfo.phoneNumber;
+	this.skype = data.personalInfo.skypeName;
+	
+	if(data.userInfo.startOfWork) {
+		this.startOfWork.content = new Date(data.userInfo.startOfWork);
+	}
+	
+	if(data.personalInfo.birthday) {
+		this.birthday = {
+			content:new Date(data.personalInfo.birthday),
+			isDate:true
+		}
+	}
 }

@@ -43,7 +43,7 @@
 						<p><strong>E-mail</strong>: <span class="js-hd-model-user-email"></span></p>
 						<p><strong>Corporate phone</strong>: <span class="js-hd-model-user-corporate-number"></span></p>
 						<p><strong>Start of work</strong>: <span class="js-hd-model-user-start-of-work"></span></p>
-						<p><strong>Line manager</strong>: <span class="js-hd-model-user-linemanager"></span></p>
+						<p><strong>Line manager</strong>: <a class="js-hd-model-user-linemanager"></a></p>
 						<p><strong>Subordinates count</strong>: <span class="js-hd-model-user-subs-count"></span></p>
 					</section>
 					

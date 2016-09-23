@@ -18,17 +18,19 @@ function UserInfoController(model, view) {
 			})
 	}
 	
-	var saveUserInfoButton = this._view._saveUserInfoButton;
+	var saveUserInfoButton = this._view.$saveUserInfoButton;
 	if(saveUserInfoButton) {
 		saveUserInfoButton.click(function(event) {
 			event.preventDefault();
 			_this.updateUserInfo();
 		});
+		
+		_this.getLineManagers();
 	}
 	
-	var changeImageButton = this._view._changeImageButton;
+	var changeImageButton = this._view.$changeImageButton;
 	if(changeImageButton) {
-		this._view._image.parent().hover(
+		this._view.image.parent().hover(
 			function(event) {
 				changeImageButton.css('display', 'block');
 			},
@@ -38,11 +40,11 @@ function UserInfoController(model, view) {
 		);
 		
 		changeImageButton.click(function(event) {
-			_this._view._changeImageModal.modal('show');
+			_this._view.$changeImageModal.modal('show');
 		});
 		
-		this._view._saveImageButton.click(function(event) {
-			_this.updateUserImage(_this._view._changeImageModal);
+		this._view.$saveImageButton.click(function(event) {
+			_this.updateUserImage(_this._view.$changeImageModal);
 		});
 	}
 }
@@ -52,7 +54,7 @@ UserInfoController.prototype.updateUserImage = function(modal) {
 }
 
 UserInfoController.prototype.updateUserInfo = function() {
-	var form = this._view._userEditForm;
+	var form = this._view.$userEditForm;
 	var userInfo = new UserInfo(form);
 	var userService = $root_scope.services.userService;
 	if(userService) {
@@ -72,7 +74,7 @@ UserInfoController.prototype.getLineManagers = function() {
 	if(userService) {
 		userService.getAllUsers()
 			.done(function(data, textStatus, jqXHR) {
-				_this._model._lineManagers = data;
+				_this._model.lineManagers = data;
 				_this._view.update();
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
