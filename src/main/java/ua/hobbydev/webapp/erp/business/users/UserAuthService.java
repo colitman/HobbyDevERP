@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.hobbydev.webapp.erp.business.ResourceAlreadyExistsException;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
+import ua.hobbydev.webapp.erp.business.roles.RoleServiceInterface;
+import ua.hobbydev.webapp.erp.config.AccessMatrix;
 import ua.hobbydev.webapp.erp.data.ObjectNotExistsException;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOFactoryInterface;
 import ua.hobbydev.webapp.erp.data.auth.AuthDAOInterface;
+import ua.hobbydev.webapp.erp.domain.roles.UserRole;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.util.Hashtable;
@@ -36,7 +39,11 @@ public class UserAuthService implements UserAuthServiceInterface {
     @Autowired
     private AuthDAOFactoryInterface authDaoFactory;
 
-    @Autowired UserServiceInterface userService;
+    @Autowired
+    UserServiceInterface userService;
+
+    @Autowired
+    RoleServiceInterface roleService;
 
     private AuthDAOInterface getAuthDao() {
         return authDaoFactory.getDao(authDaoName);
@@ -76,6 +83,27 @@ public class UserAuthService implements UserAuthServiceInterface {
             user.getUserInfo().setCorporatePhoneNumber(details.get(corporatePhone));
 
             //TODO add support for dates
+
+            if(userService.list().size() == 0) {
+                UserRole role = new UserRole();
+                role.setName("First Admin");
+
+                StringBuilder sb = new StringBuilder();
+
+                for (AccessMatrix.Authority a : AccessMatrix.Authority.values()) {
+                    sb.append(a.name()).append(",");
+                }
+
+                role.setAuthorities(sb.toString());
+
+                try {
+                    roleService.add(role);
+                } catch (ResourceAlreadyExistsException e) {
+                    //TODO add logging
+                }
+
+                user.setRole(role);
+            }
 
             try {
                 userService.add(user);
