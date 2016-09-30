@@ -8,17 +8,17 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<c:import url="/imports/head?pageTitle=Role"></c:import>
+		<c:import url="/imports/head?pageTitle=${role.name}"></c:import>
 	</head>
 	
-	<body data-page="role-edit" data-target="${roleKey}">
+	<body data-page="role" data-target="${role.key}">
 		<div class="container">
 			<c:import url="/imports/mainNav?root=false"></c:import>
 			<header class="hd-main-header">
 				<div class="row">
 					<div class="col-sm-6">
-						<h3><span class="js-hd-model-role-name"></span></h3>
-						<span class="js-hd-model-role-description"></span>
+						<h3>${role.name}</h3>
+						${role.description}
 					</div>
 					<div class="col-sm-6">
 						<h3>
@@ -55,6 +55,5 @@
 		</div>
 
 		<c:import url="/imports/scripts"></c:import>
-		<script src="${app}/res/app/js/pages/admin/roles/index_edit.js"></script>
 	</body>
 </html>

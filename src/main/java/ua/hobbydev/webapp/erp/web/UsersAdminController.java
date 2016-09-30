@@ -18,7 +18,7 @@ import ua.hobbydev.webapp.erp.domain.users.User;
 
 @Controller
 @RequestMapping(method=RequestMethod.GET)
-public class UsersNavController {
+public class UsersAdminController {
 
 	@Autowired
 	private UserServiceInterface userService;
@@ -42,7 +42,7 @@ public class UsersNavController {
 		return mv;
 	}
 
-	@PreAuthorize(value = "isAuthenticated()")
+	@PreAuthorize(value = "hasAuthority('VIEW_USER_PAGE')")
 	@RequestMapping(path="/users/{username}")
 	public ModelAndView getUserPage(@PathVariable String username,
 									Authentication loggedUser,

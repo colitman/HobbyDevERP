@@ -10,18 +10,23 @@ package ua.hobbydev.webapp.erp.config;
 public class AccessMatrix {
 
     public enum Authority {
-        VIEW_USER_PAGE,
-        VIEW_USER_EDIT_PAGE,
-
+        // ~ === Menu items view authorities
         VIEW_ADMIN_MENU,
-        VIEW_ROLES_ADMIN_PAGE,
-        VIEW_USERS_ADMIN_PAGE,
-        VIEW_ROLE_EDIT_PAGE,
 
-        ADD_USER_ROLE,
+        // ~ === Pages view authorities
+            // ~ === Admin area pages
+            VIEW_ROLES_PAGE,
+            VIEW_USERS_PAGE,
 
-        GET_USERS_LIST,
-        GET_USER_INFO,
-        UPDATE_USER_INFO
+            // ~ === User related pages
+            VIEW_USER_PAGE,
+
+        // ~ === Actions authorities
+            // ~ === User related actions
+            EDIT_USER,
+
+            // ~ === Role related actions
+            EDIT_ROLE,
+            ADD_ROLE
     }
 }

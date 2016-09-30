@@ -34,12 +34,12 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<sec:authorize access="hasAuthority('VIEW_ROLES_ADMIN_PAGE')">
+								<sec:authorize access="hasAuthority('VIEW_ROLES_PAGE')">
 									<li>
 										<a href="${app}/admin/roles">Roles</a>
 									</li>
 								</sec:authorize>
-								<sec:authorize access="hasAuthority('VIEW_USERS_ADMIN_PAGE')">
+								<sec:authorize access="hasAuthority('VIEW_USERS_PAGE')">
 									<li>
 										<a href="${app}/admin/users">Users</a>
 									</li>

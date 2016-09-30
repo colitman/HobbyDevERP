@@ -11,7 +11,7 @@
 		<c:import url="/imports/head?pageTitle=Roles"></c:import>
 	</head>
 	
-	<body data-page="roles-admin">
+	<body data-page="roles">
 		<div class="container">
 			<c:import url="/imports/mainNav?root=false"></c:import>
 			<header class="hd-main-header">
@@ -23,10 +23,10 @@
 			</header>
 			<main>
 				<div class="row">
-					<button type="button" id="hd-add-new-role-button" class="btn btn-success pull-right">Add role</button>
+					<button type="button" id="hd-add-new-role-button" data-toggle="modal" data-target="#hd-modal-new-role" class="btn btn-success pull-right">Add role</button>
 				</div>
 				<div class="table-responsive">
-					<table id="js-hd-model-roles-table" class="table table-hover">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Name</th>
@@ -37,7 +37,24 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+							<c:forEach items="${roles}" var="role" >
+								<tr>
+									<td>
+										<a href="${app}/admin/roles/${role.key}">${role.name}</a>
+									</td>
+									<td>${role.description}</td>
+									<td>${fn:length(role.users)}</td>
+									<td>
+										<c:if test="${empty fn:join(fn:split(role.authorities, ','),'')}" var="noAuthorities">0</c:if>
+										<c:if test="${not noAuthorities}"> ${fn:length(fn:split(role.authorities, ","))}</c:if>
+									</td>
+									<td>
+										<c:if test="${empty role.users}">
+											<a href="#" data-target="${role.key}"><i class="fa fa-remove"></i></a>
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -51,6 +68,5 @@
 		</div>
 
 		<c:import url="/imports/scripts"></c:import>
-		<script src="${app}/res/app/js/pages/admin/roles/index.js"></script>
 	</body>
 </html>

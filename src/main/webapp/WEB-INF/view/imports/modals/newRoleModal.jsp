@@ -13,7 +13,7 @@
 				<h4 class="modal-title">New Role</h4>
 			</header>
 			<div class="modal-body">
-				<form id="hd-new-role-form">
+				<form id="hd-new-role-form" method="post" action="${app}/admin/roles">
 					<div class="form-group">
 						<label for="name" class="control-label">Name</label>
 						<input type="text" name="name" id="name" class="form-control" required="required" autofocus="autofocus">
@@ -26,7 +26,7 @@
 			</div>
 			<footer class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="hd-save-new-role-button">Add</button>
+				<button form="hd-new-role-form" type="submit" class="btn btn-primary" id="hd-save-new-role-button">Add</button>
 			</footer>
 		</div>
 	</div>
