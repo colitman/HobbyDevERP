@@ -20,7 +20,7 @@ public class BaseController {
 	public ModelAndView getRootPage(ModelAndView mv, Authentication auth) {
 
 		mv.addObject("username", auth.getName());
-		mv.setViewName("user");
+		mv.setViewName("dashboard");
 		
 		return mv;
 	}

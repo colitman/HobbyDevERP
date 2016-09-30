@@ -53,8 +53,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href="${app}/profile"><i class="fa fa-user"></i> ${loggedUserName}</a></li>
-							<form id="hd-signout-form" action="${app}/signout" method="post"></form>
-							<li><a href="#" id="hd-signout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+							<li><a href="${app}/signout" id="hd-signout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
 						</ul>
 					</li>
 				</ul>
