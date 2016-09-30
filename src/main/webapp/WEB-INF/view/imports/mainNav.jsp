@@ -4,12 +4,16 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:set var="app" value="${pageContext.servletContext.contextPath}" />
+<sec:authorize access="isAuthenticated()" var="userKnown"></sec:authorize>
+<c:if test="${userKnown}">
+	<sec:authentication property="name" var="currentUsername"></sec:authentication>
+</c:if>
 
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="${app}/">ERP</a>
-			<sec:authorize access="isAuthenticated()">
+			<c:if test="${userKnown}">
 				<button type="button"
 						class="navbar-toggle collapsed"
 						data-toggle="collapse"
@@ -17,11 +21,10 @@
 				
 					<i class="fa fa-bars"></i>
 				</button>
-			</sec:authorize>
+			</c:if>
 		</div>
 
-		<sec:authorize access="isAuthenticated()">
-			<sec:authentication property="name" var="currentUsername"></sec:authentication>
+		<c:if test="${userKnown}">
 			<div class="collapse navbar-collapse" id="hd-main-nav">
 				<ul class="nav navbar-nav navbar-right">
 					<sec:authorize access="hasAuthority('VIEW_ADMIN_MENU')">
@@ -46,18 +49,17 @@
 					</sec:authorize>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<span class="js-hd-model-current-username"></span>
-							<span class="caret"></span>
+							${currentUsername} <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="${app}/users/${currentUsername}"><i class="fa fa-user"></i> <span class="js-hd-model-current-fullname"></span></a></li>
+							<li><a href="${app}/profile"><i class="fa fa-user"></i> ${loggedUserName}</a></li>
 							<form id="hd-signout-form" action="${app}/signout" method="post"></form>
 							<li><a href="#" id="hd-signout-link"><i class="fa fa-sign-out"></i> Sign Out</a></li>
 						</ul>
 					</li>
 				</ul>
 			</div>
-		</sec:authorize>
+		</c:if>
 	</div>
 </nav>
 
