@@ -81,10 +81,10 @@ public class RolesAdminController {
 	}
 
 	@PreAuthorize(value = "hasAuthority('EDIT_ROLE')")
-	@RequestMapping(path="/roles/{key}", method = RequestMethod.PUT)
+	@RequestMapping(path="/roles/{key}", method = RequestMethod.POST)
 	public ModelAndView updateRole(@PathVariable Long key,
-								   @RequestParam (required = false) String name,
-								   @RequestParam (required = false) String description,
+								   @RequestParam String name,
+								   @RequestParam String description,
 								   @RequestParam (required = false) String authorities,
 										ModelAndView mv) throws IOException {
 
@@ -93,29 +93,20 @@ public class RolesAdminController {
 		try {
 			role = roleService.get(key);
 		} catch (ResourceNotFoundException e) {
-			throw new IOException("invalid role id");
+			throw new IOException("Invalid role id");
 		}
 
-		if(name != null) {
-			role.setName(name);
-		}
-
-		if(description != null) {
-			role.setDescription(description);
-		}
-
-		if(authorities != null) {
-			role.setAuthorities(authorities);
-		}
+		role.setName(name);
+		role.setDescription(description);
+		role.setAuthorities(authorities);
 
 		try {
 			roleService.update(role);
 		} catch (ResourceNotFoundException e) {
-			throw new IOException("invalid role id");
+			throw new IOException("Invalid role id");
 		}
 
-		mv.setViewName("redirect:/admin/roles/" + key)
-		mv.;
+		mv.setViewName("redirect:/admin/roles/" + key);
 		return mv;
 	}
 }
