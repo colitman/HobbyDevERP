@@ -15,3 +15,4 @@
 		crossorigin="anonymous"></script>
 
 <script src="${app}/res/jscookie/js.cookie.js"></script>
+<script src="${app}/res/app/js/constants.js"></script>

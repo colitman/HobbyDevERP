@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.hobbydev.webapp.erp.business.ResourceAlreadyExistsException;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
 import ua.hobbydev.webapp.erp.business.roles.RoleServiceInterface;
+import ua.hobbydev.webapp.erp.config.AccessMatrix;
 import ua.hobbydev.webapp.erp.domain.roles.UserRole;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -72,8 +74,48 @@ public class RolesAdminController {
 			return mv;
 		}
 
+		mv.addObject("authorityMatrix", AccessMatrix.Authority.values());
 		mv.addObject("role", role);
 		mv.setViewName("role");
+		return mv;
+	}
+
+	@PreAuthorize(value = "hasAuthority('EDIT_ROLE')")
+	@RequestMapping(path="/roles/{key}", method = RequestMethod.PUT)
+	public ModelAndView updateRole(@PathVariable Long key,
+								   @RequestParam (required = false) String name,
+								   @RequestParam (required = false) String description,
+								   @RequestParam (required = false) String authorities,
+										ModelAndView mv) throws IOException {
+
+		UserRole role = null;
+
+		try {
+			role = roleService.get(key);
+		} catch (ResourceNotFoundException e) {
+			throw new IOException("invalid role id");
+		}
+
+		if(name != null) {
+			role.setName(name);
+		}
+
+		if(description != null) {
+			role.setDescription(description);
+		}
+
+		if(authorities != null) {
+			role.setAuthorities(authorities);
+		}
+
+		try {
+			roleService.update(role);
+		} catch (ResourceNotFoundException e) {
+			throw new IOException("invalid role id");
+		}
+
+		mv.setViewName("redirect:/admin/roles/" + key)
+		mv.;
 		return mv;
 	}
 }
