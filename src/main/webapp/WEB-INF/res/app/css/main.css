@@ -17,7 +17,7 @@ i.disabled {
 	cursor: not-allowed;
 }
 
-.dropdown-menu button {
+/*.dropdown-menu button {
 	display: inline-block;
 	width: 100%;
 	padding: 3px 20px;
@@ -37,7 +37,7 @@ i.disabled {
 		padding: 5px 15px 5px 25px;
 		background-color: transparent;
 	}
-}
+}*/
 
 .hd-main-header {
 	margin-top: -20px;
@@ -63,22 +63,6 @@ header.modal-header {
 
 .hd-user-image-large {
 	max-width: 90%;
-}
-
-.hd-ovelayed-img-container {
-	position: relative;
-}
-
-.hd-img-overlay {
-	display: none;
-	position: absolute;
-	bottom: 0;
-	width: 90%;
-	background: black;
-	color: white;
-	text-align: center;
-	cursor: pointer;
-	padding: 15px 0;
 }
 
 td .fa {
