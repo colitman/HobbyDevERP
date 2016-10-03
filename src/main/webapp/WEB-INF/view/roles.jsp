@@ -50,7 +50,7 @@
 									</td>
 									<td>
 										<c:if test="${empty role.users}">
-											<a href="#" data-target="${role.key}"><i class="fa fa-remove"></i></a>
+											<a href="#hd-delete-confirmation-modal" data-toggle="modal" class="js-hd-delete-role-btn" data-key="${role.key}" data-name="${role.name}"><i class="fa fa-remove"></i></a>
 										</c:if>
 									</td>
 								</tr>
@@ -65,8 +65,10 @@
 
 		<div class="hd-modals">
 			<c:import url="/imports/modals/newRoleModal"></c:import>
+			<c:import url="/imports/modals/deleteConfirmationModal"></c:import>
 		</div>
 
 		<c:import url="/imports/scripts"></c:import>
+		<script src="${app}/res/app/js/roleDeleteController.js"></script>
 	</body>
 </html>

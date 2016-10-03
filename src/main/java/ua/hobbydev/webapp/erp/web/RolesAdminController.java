@@ -86,7 +86,14 @@ public class RolesAdminController {
 								   @RequestParam String name,
 								   @RequestParam String description,
 								   @RequestParam (required = false) String authorities,
+								   @RequestParam (required = false, defaultValue = "false") boolean isDeleted,
 										ModelAndView mv) throws IOException {
+
+		if(isDeleted) {
+			deleteRole(key);
+			mv.setViewName("redirect:/admin/roles");
+			return mv;
+		}
 
 		UserRole role = null;
 
@@ -108,5 +115,9 @@ public class RolesAdminController {
 
 		mv.setViewName("redirect:/admin/roles/" + key);
 		return mv;
+	}
+
+	private void deleteRole(Long key) {
+		roleService.delete(UserRole.class, key);
 	}
 }
