@@ -50,7 +50,9 @@
 									</td>
 									<td>
 										<c:if test="${empty role.users}">
-											<a href="#hd-delete-confirmation-modal" data-toggle="modal" class="js-hd-delete-role-btn" data-key="${role.key}" data-name="${role.name}"><i class="fa fa-remove"></i></a>
+											<sec:authorize access="hasAuthority('DELETE_ROLE')">
+												<a href="#hd-delete-confirmation-modal" data-toggle="modal" class="js-hd-delete-role-btn" data-key="${role.key}" data-name="${role.name}"><i class="fa fa-remove"></i></a>
+											</sec:authorize>
 										</c:if>
 									</td>
 								</tr>

@@ -24,9 +24,12 @@ public class AccessMatrix {
         // ~ === Actions authorities
             // ~ === User related actions
             EDIT_USER,
+            DELETE_USER,
+            ADD_USER,
 
             // ~ === Role related actions
             EDIT_ROLE,
-            ADD_ROLE
+            ADD_ROLE,
+            DELETE_ROLE
     }
 }

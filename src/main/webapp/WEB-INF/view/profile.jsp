@@ -18,7 +18,11 @@
 			<header class="hd-main-header">
 				<div class="row">
 					<div class="col-sm-6">
-						<h3>${user.userInfo.firstName += " " += user.userInfo.lastName}</h3>
+						<h3>${user.userInfo.firstName += " " += user.userInfo.lastName}
+							<span class="badge">
+								${user.role.name}
+							</span>
+						</h3>
 					</div>
 				</div>
 			</header>

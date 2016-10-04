@@ -24,12 +24,12 @@
 			</header>
 			<main>
 				<ul class="nav nav-tabs" role="tablist">
-					<li class="active"><a href="#authorities" role="tab" data-toggle="tab">Authorities</a></li>
-					<li><a href="#users" role="tab" data-toggle="tab">Users</a></li>
+					<li class="active"><a href="#authorities-tab" role="tab" data-toggle="tab">Authorities</a></li>
+					<li><a href="#users-tab" role="tab" data-toggle="tab">Users</a></li>
 				</ul>
 				
 				<div class="tab-content">
-					<div class="active tab-pane fade in" id="authorities">
+					<div class="active tab-pane fade in" id="authorities-tab">
 						<form action="${app}/admin/roles/${role.key}" method="post">
 							<input type="hidden" name="name" id="name" value="${role.name}">
 							<input type="hidden" name="description" id="description" value="${role.description}">
@@ -56,9 +56,28 @@
 						</form>
 					</div>
 					
-					<div class="tab-pane fade" id="users">
+					<div class="tab-pane fade" id="users-tab">
 						<h2>Users</h2>
-						<p>Lorem ipsum.</p>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${role.users}" var="user">
+										<tr>
+											<td>${user.key}</td>
+											<td>
+												<a href="${app}/users/${user.username}">${user.userInfo.firstName += " " += user.userInfo.lastName}</a>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			
