@@ -17,6 +17,9 @@ import ua.hobbydev.webapp.erp.business.users.UserServiceInterface;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,9 +40,35 @@ public class UsersAdminController {
 		return mv;
 	}
 
+    @PreAuthorize(value = "hasAuthority('EDIT_USER')")
+    @RequestMapping(path="/users/{username}", method = RequestMethod.GET)
+    public ModelAndView getUserEditPage(@PathVariable String username,
+                                   ModelAndView mv) {
+
+        User user = null;
+
+        try {
+            user = userService.get(username);
+            List<User> managers = userService.list();
+            mv.addObject("user", user);
+            mv.addObject("managers", managers);
+        } catch (ResourceNotFoundException e) {
+            mv.setViewName("redirect:/errors/404");
+            return mv;
+        }
+
+        mv.setViewName("editUser");
+        return mv;
+    }
+
 	@PreAuthorize(value = "hasAuthority('EDIT_USER')")
 	@RequestMapping(path="/users/{username}", method = RequestMethod.POST)
-	public ModelAndView updateRole(@PathVariable String username,
+	public ModelAndView updateUser(@PathVariable String username,
+                                   @RequestParam String startOfWork,
+                                   @RequestParam (required = false) String birthday,
+                                   @RequestParam String lineManager,
+                                   @RequestParam String personalPhone,
+                                   @RequestParam String skypeName,
 								   @RequestParam (required = false, defaultValue = "false") boolean isDeleted,
 								   ModelAndView mv) throws IOException {
 
@@ -54,7 +83,48 @@ public class UsersAdminController {
 
 		}
 
-		mv.setViewName("redirect:/admin/users/" + username);
+		User user = null;
+
+        try {
+            user = userService.get(username);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date startOfWorkDate = null;
+            try {
+                startOfWorkDate = formatter.parse(startOfWork);
+                user.getUserInfo().setStartOfWork(startOfWorkDate);
+            } catch (ParseException e) {
+                //TODO add logging
+            }
+
+            Date birthdayDate = null;
+            if(birthday != null) {
+                try {
+                    birthdayDate = formatter.parse(birthday);
+                    user.getPersonalInfo().setBirthday(birthdayDate);
+                } catch (ParseException e) {
+                    //TODO add logging
+                }
+            }
+
+            if(lineManager != null && !lineManager.trim().isEmpty()) {
+                User manager = null;
+                manager = userService.get(lineManager);
+                user.setLineManager(manager);
+            } else {
+                user.setLineManager(null);
+            }
+
+            user.getPersonalInfo().setPhoneNumber(personalPhone);
+            user.getPersonalInfo().setSkypeName(skypeName);
+
+            userService.update(user);
+
+        } catch (ResourceNotFoundException e) {
+            throw new IOException("Invalid username or line manager name");
+        }
+
+        mv.setViewName("redirect:/users/" + username);
 		return mv;
 	}
 

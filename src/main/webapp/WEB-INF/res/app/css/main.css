@@ -11,6 +11,10 @@ header {
 	margin-bottom: 20px;
 }
 
+hr {
+	border-top-color: #ccc;
+}
+
 a.disabled,
 i.disabled {
 	color: #808080;

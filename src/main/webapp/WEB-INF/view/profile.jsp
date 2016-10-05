@@ -19,11 +19,17 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<h3>${user.userInfo.firstName += " " += user.userInfo.lastName}
-							<span class="badge">
-								${user.role.name}
-							</span>
+							<span class="badge">${user.role.name}</span>
 						</h3>
 					</div>
+					<sec:authorize access="hasAuthority('EDIT_USER')" var="editAllowedByRole"></sec:authorize>
+					<sec:authentication property="name" var="principalName"></sec:authentication>
+					<c:set var="editAllowedBySelfProfile" value="${user.username == principalName}"></c:set>
+					<c:if test="${editAllowedByRole || editAllowedBySelfProfile}">
+						<h3>
+							<a href="${app}/admin/users/${user.username}" class="btn btn-primary pull-right">Edit</a>
+						</h3>
+					</c:if>
 				</div>
 			</header>
 			<main>
@@ -45,7 +51,7 @@
 						<p><strong>Start of work</strong>: <fmt:formatDate value="${user.userInfo.startOfWork}" pattern="dd MMMM yyyy" /></p>
 						<p><strong>Line manager</strong>:
 							<c:if test="${user.lineManager != null}">
-								<a href="${app}/users/${user.username}">
+								<a href="${app}/users/${user.lineManager.username}">
 									${user.lineManager.userInfo.firstName += " " += user.lineManager.userInfo.lastName}
 								</a>
 							</c:if>
@@ -56,7 +62,7 @@
 					
 					<section class="col-sm-4">
 						<header><h4>Personal Information</h4></header>
-						<p><strong>Birthday</strong>: ${user.personalInfo.birthday}</p>
+						<p><strong>Birthday</strong>: <fmt:formatDate value="${user.personalInfo.birthday}" pattern="dd MMMM yyyy" /></p>
 						<p><strong>Personal phone</strong>: ${user.personalInfo.phoneNumber}</p>
 						<p><strong>Skype</strong>: ${user.personalInfo.skypeName}</p>
 					</section>
