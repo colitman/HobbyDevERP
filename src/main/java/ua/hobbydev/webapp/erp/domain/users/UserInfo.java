@@ -20,7 +20,7 @@ public class UserInfo implements IdentifiedEntityInterface {
     private Long key;
 
     @OneToOne
-    @JoinColumn(name = "user_key", nullable = false)
+    @JoinColumn(name = "user_key")
     private User user;
 
     @Column(name = "first_name", nullable = false)

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
 import ua.hobbydev.webapp.erp.business.users.UserServiceInterface;
-import ua.hobbydev.webapp.erp.domain.users.PersonalInfo;
 import ua.hobbydev.webapp.erp.domain.users.User;
-import ua.hobbydev.webapp.erp.domain.users.UserInfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -61,8 +59,6 @@ public class UsersAdminController {
 	}
 
 	private void deleteUser(String username) throws ResourceNotFoundException {
-		userService.delete(PersonalInfo.class, userService.get(username).getPersonalInfo().getKey());
-		userService.delete(UserInfo.class, userService.get(username).getUserInfo().getKey());
 		userService.delete(User.class, userService.get(username).getKey());
 	}
 }
