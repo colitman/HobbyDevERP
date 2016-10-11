@@ -166,11 +166,11 @@ public class UsersAdminController {
                 }
             }
 
-            if(lineManager != null && !lineManager.trim().isEmpty()) {
+            if(lineManager != null && !lineManager.trim().isEmpty() && !lineManager.equalsIgnoreCase("hd_no_manager")) {
                 User manager = null;
                 manager = userService.get(lineManager);
                 user.setLineManager(manager);
-            } else {
+            } else if("hd_no_manager".equalsIgnoreCase(lineManager)){
                 user.setLineManager(null);
             }
 

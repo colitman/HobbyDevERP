@@ -60,7 +60,7 @@
 								<div class="form-group">
 									<label for="lineManager">Line Manager</label>
 									<select class="form-control" name="lineManager" id="lineManager">
-										<option value="" ${user.lineManager == null? "selected":""}>No manager</option>
+										<option value="hd_no_manager" ${user.lineManager == null? "selected":""}>No manager</option>
 										<c:forEach items="${managers}" var="manager">
 											<c:if test="${user.username != manager.username}">
 												<c:set var="currentManager" value="${user.lineManager != null && user.lineManager.username == manager.username}"></c:set>
