@@ -6,6 +6,8 @@ package ua.hobbydev.webapp.erp.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
 import ua.hobbydev.webapp.erp.business.users.UserServiceInterface;
+import ua.hobbydev.webapp.erp.config.AccessMatrix;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.io.IOException;
@@ -40,10 +43,36 @@ public class UsersAdminController {
 		return mv;
 	}
 
-    @PreAuthorize(value = "hasAuthority('EDIT_USER')")
+    //@PreAuthorize(value = "hasAnyAuthority('EDIT_USER', 'EDIT_OWN_PROFILE')")
     @RequestMapping(path="/users/{username}", method = RequestMethod.GET)
     public ModelAndView getUserEditPage(@PathVariable String username,
-                                   ModelAndView mv) {
+                                        ModelAndView mv, Authentication auth) {
+
+        boolean allow = false;
+
+        if(auth == null || !auth.isAuthenticated()) {
+            mv.setViewName("redirect:/errors/403");
+            return mv;
+        }
+
+        for(GrantedAuthority ga : auth.getAuthorities()) {
+            String authorityName = ga.getAuthority();
+            if(authorityName.equalsIgnoreCase(AccessMatrix.Authority.EDIT_USER.toString())) {
+                allow = true;
+                break;
+            }
+        }
+
+        if(!allow) {
+            if(username.equalsIgnoreCase(auth.getName())) {
+                allow = true;
+            }
+        }
+
+        if(!allow) {
+            mv.setViewName("redirect:/errors/403");
+            return mv;
+        }
 
         User user = null;
 
@@ -61,16 +90,44 @@ public class UsersAdminController {
         return mv;
     }
 
-	@PreAuthorize(value = "hasAuthority('EDIT_USER')")
+	//@PreAuthorize(value = "hasAnyAuthority('EDIT_USER', 'DELETE_USER')")
 	@RequestMapping(path="/users/{username}", method = RequestMethod.POST)
 	public ModelAndView updateUser(@PathVariable String username,
-                                   @RequestParam String startOfWork,
+                                   @RequestParam (required = false) String startOfWork,
                                    @RequestParam (required = false) String birthday,
-                                   @RequestParam String lineManager,
+                                   @RequestParam (required = false) String lineManager,
                                    @RequestParam String personalPhone,
                                    @RequestParam String skypeName,
 								   @RequestParam (required = false, defaultValue = "false") boolean isDeleted,
-								   ModelAndView mv) throws IOException {
+								   ModelAndView mv,
+                                   Authentication auth) throws IOException {
+
+        boolean allow = false;
+
+        if(auth == null || !auth.isAuthenticated()) {
+            mv.setViewName("redirect:/errors/403");
+            return mv;
+        }
+
+        for(GrantedAuthority ga : auth.getAuthorities()) {
+            String authorityName = ga.getAuthority();
+            if(authorityName.equalsIgnoreCase(AccessMatrix.Authority.EDIT_USER.toString()) ||
+                    authorityName.equalsIgnoreCase(AccessMatrix.Authority.DELETE_USER.toString())) {
+                allow = true;
+                break;
+            }
+        }
+
+        if(!allow) {
+            if(username.equalsIgnoreCase(auth.getName())) {
+                allow = true;
+            }
+        }
+
+        if(!allow) {
+            mv.setViewName("redirect:/errors/403");
+            return mv;
+        }
 
 		if(isDeleted) {
 			try {
@@ -90,11 +147,13 @@ public class UsersAdminController {
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date startOfWorkDate = null;
-            try {
-                startOfWorkDate = formatter.parse(startOfWork);
-                user.getUserInfo().setStartOfWork(startOfWorkDate);
-            } catch (ParseException e) {
-                //TODO add logging
+            if(startOfWork != null) {
+                try {
+                    startOfWorkDate = formatter.parse(startOfWork);
+                    user.getUserInfo().setStartOfWork(startOfWorkDate);
+                } catch (ParseException e) {
+                    //TODO add logging
+                }
             }
 
             Date birthdayDate = null;

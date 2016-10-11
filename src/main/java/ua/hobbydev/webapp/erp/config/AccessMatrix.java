@@ -24,6 +24,7 @@ public class AccessMatrix {
         // ~ === Actions authorities
             // ~ === User related actions
             EDIT_USER,
+            //EDIT_OWN_PROFILE,
             DELETE_USER,
             ADD_USER,
 

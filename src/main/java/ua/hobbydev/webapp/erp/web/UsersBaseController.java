@@ -42,7 +42,7 @@ public class UsersBaseController {
 		return mv;
 	}
 
-	@PreAuthorize(value = "hasAuthority('VIEW_USER_PAGE')")
+	@PreAuthorize(value = "isAuthenticated()")
 	@RequestMapping(path="/users/{username}")
 	public ModelAndView getUserPage(@PathVariable String username,
 									Authentication loggedUser,

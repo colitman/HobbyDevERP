@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:set var="app" value="${pageContext.servletContext.contextPath}" />
+<sec:authorize access="hasAuthority('EDIT_USER')" var="editAllowedByRole"></sec:authorize>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,28 +35,41 @@
 							<p><strong>E-mail</strong>: ${user.userInfo.email}</p>
 							<p><strong>Corporate phone</strong>: ${user.userInfo.corporatePhoneNumber}</p>
 							<p><strong>Subordinates count</strong>: ${fn:length(user.subordinates)}</p>
-							<hr>
 							
-							<div class="form-group">
-								<label for="startOfWork">Start of Work</label>
-								<fmt:formatDate value="${user.userInfo.startOfWork}" pattern="yyyy-MM-dd" var="startOfWorkString"></fmt:formatDate>
-								<input type="date" class="form-control" name="startOfWork" id="startOfWork" value="${startOfWorkString}">
-							</div>
+							<c:if test="${!editAllowedByRole}">
+								<p><strong>Start of Work</strong>:  <fmt:formatDate value="${user.userInfo.startOfWork}" pattern="dd MMMM yyyy" /></p>
+								<p><strong>Line manager</strong>:
+									<c:if test="${user.lineManager != null}">
+										<a href="${app}/users/${user.lineManager.username}">
+												${user.lineManager.userInfo.firstName += " " += user.lineManager.userInfo.lastName}
+										</a>
+									</c:if>
+								</p>
+							</c:if>
 							
-							<div class="form-group">
-								<label for="lineManager">Line Manager</label>
-								<select class="form-control" name="lineManager" id="lineManager">
-									<option value="" ${user.lineManager == null? "selected":""}>No manager</option>
-									<c:forEach items="${managers}" var="manager">
-										<c:if test="${user.username != manager.username}">
-											<c:set var="currentManager" value="${user.lineManager != null && user.lineManager.username == manager.username}"></c:set>
-											<option value="${manager.username}" ${currentManager? "selected":""}>${manager.userInfo.firstName += " " += manager.userInfo.lastName}</option>
-										</c:if>
-									</c:forEach>
-								</select>
-							</div>
+							<c:if test="${editAllowedByRole}">
 								
-							
+								<hr>
+								
+								<div class="form-group">
+									<label for="startOfWork">Start of Work</label>
+									<fmt:formatDate value="${user.userInfo.startOfWork}" pattern="yyyy-MM-dd" var="startOfWorkString"></fmt:formatDate>
+									<input type="date" class="form-control" name="startOfWork" id="startOfWork" value="${startOfWorkString}">
+								</div>
+								
+								<div class="form-group">
+									<label for="lineManager">Line Manager</label>
+									<select class="form-control" name="lineManager" id="lineManager">
+										<option value="" ${user.lineManager == null? "selected":""}>No manager</option>
+										<c:forEach items="${managers}" var="manager">
+											<c:if test="${user.username != manager.username}">
+												<c:set var="currentManager" value="${user.lineManager != null && user.lineManager.username == manager.username}"></c:set>
+												<option value="${manager.username}" ${currentManager? "selected":""}>${manager.userInfo.firstName += " " += manager.userInfo.lastName}</option>
+											</c:if>
+										</c:forEach>
+									</select>
+								</div>
+							</c:if>
 						</section>
 						
 						<section class="col-sm-6">
