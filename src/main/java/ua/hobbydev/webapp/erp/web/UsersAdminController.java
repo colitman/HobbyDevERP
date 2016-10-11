@@ -22,6 +22,7 @@ import ua.hobbydev.webapp.erp.domain.users.User;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -188,6 +189,15 @@ public class UsersAdminController {
 	}
 
 	private void deleteUser(String username) throws ResourceNotFoundException {
-		userService.delete(User.class, userService.get(username).getKey());
+		User deletedUser = userService.get(username);
+
+        for(User sub:deletedUser.getSubordinates()) {
+            sub.setLineManager(null);
+            userService.update(sub);
+        }
+
+        deletedUser.setSubordinates(new ArrayList<User>());
+
+	    userService.delete(User.class, deletedUser.getKey());
 	}
 }
