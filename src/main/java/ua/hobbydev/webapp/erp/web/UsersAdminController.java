@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.hobbydev.webapp.erp.business.ResourceNotFoundException;
+import ua.hobbydev.webapp.erp.business.roles.RoleServiceInterface;
 import ua.hobbydev.webapp.erp.business.users.UserServiceInterface;
 import ua.hobbydev.webapp.erp.config.AccessMatrix;
+import ua.hobbydev.webapp.erp.domain.roles.UserRole;
 import ua.hobbydev.webapp.erp.domain.users.User;
 
 import java.io.IOException;
@@ -32,6 +34,8 @@ public class UsersAdminController {
 
 	@Autowired
 	private UserServiceInterface userService;
+    @Autowired
+    private RoleServiceInterface roleService;
 
 	@PreAuthorize(value = "hasAuthority('VIEW_USERS_PAGE')")
 	@RequestMapping(path="/users", method = RequestMethod.GET)
@@ -80,8 +84,10 @@ public class UsersAdminController {
         try {
             user = userService.get(username);
             List<User> managers = userService.list();
+            List<UserRole> roles = roleService.list();
             mv.addObject("user", user);
             mv.addObject("managers", managers);
+            mv.addObject("roles", roles);
         } catch (ResourceNotFoundException e) {
             mv.setViewName("redirect:/errors/404");
             return mv;
@@ -97,6 +103,7 @@ public class UsersAdminController {
                                    @RequestParam (required = false) String startOfWork,
                                    @RequestParam (required = false) String birthday,
                                    @RequestParam (required = false) String lineManager,
+                                   @RequestParam (required = false) Long role,
                                    @RequestParam String personalPhone,
                                    @RequestParam String skypeName,
 								   @RequestParam (required = false, defaultValue = "false") boolean isDeleted,
@@ -173,6 +180,14 @@ public class UsersAdminController {
                 user.setLineManager(manager);
             } else if("hd_no_manager".equalsIgnoreCase(lineManager)){
                 user.setLineManager(null);
+            }
+
+            if(role != null && role != -1) {
+                UserRole userRole = null;
+                userRole = roleService.get(role);
+                user.setRole(userRole);
+            } else if(role == -1){
+                user.setRole(null);
             }
 
             user.getPersonalInfo().setPhoneNumber(personalPhone);

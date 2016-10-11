@@ -69,6 +69,19 @@
 										</c:forEach>
 									</select>
 								</div>
+								
+								<div class="form-group">
+									<label for="role">User Role</label>
+									<select class="form-control" name="role" id="role">
+										<option value="-1" ${user.role == null? "selected":""}>No role</option>
+										<c:forEach items="${roles}" var="role">
+											<c:if test="${user.role.name != role.name}">
+												<c:set var="currentRole" value="${user.role != null && user.role.name == role.name}"></c:set>
+												<option value="${role.key}" ${currentRole? "selected":""}>${role.name}</option>
+											</c:if>
+										</c:forEach>
+									</select>
+								</div>
 							</c:if>
 						</section>
 						
